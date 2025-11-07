@@ -26,6 +26,7 @@
           "options": {
             "tsConfig": "projects/vsk-ui-kit/tsconfig.spec.json",
             "polyfills": [
+              "projects/vsk-ui-kit/src/test.polyfills.ts",
               "zone.js",
               "zone.js/testing"
             ]
