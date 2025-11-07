@@ -1,12 +1,27 @@
 {
-  "name": "vsk-ui-kit-workspace",
+  "name": "@vsk/ui-kit-workspace",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:watch": "ng test --watch=true ",
+    "lint": "ng lint",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
+    "postinstall": "puppeteer browsers install chrome"
+  },
+  "publishConfig": {
+    "registry": "https://repo.vsk.ru/repository/npm-hosted/"
+  },
+  "module": "dist/vsk-ui-kit/fesm2022/vsk-ui-kit.mjs",
+  "typings": "dist/vsk-ui-kit/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/vsk-ui-kit/index.d.ts",
+      "default": "./dist//vsk-ui-kit/fesm2022/vsk-ui-kit.mjs"
+    }
   },
   "prettier": {
     "printWidth": 100,
@@ -29,18 +44,25 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular/build": "^20.3.9",
     "@angular/cli": "^20.3.9",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "20.5.1",
+    "eslint": "^9.38.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.9.2"
+    "ng-packagr": "^20.3.0",
+    "puppeteer": "^24.29.1",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.46.2"
   }
 }

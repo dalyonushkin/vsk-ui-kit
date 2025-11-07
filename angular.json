@@ -3,5 +3,50 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "vsk-ui-kit": {
+      "projectType": "library",
+      "root": "projects/vsk-ui-kit",
+      "sourceRoot": "projects/vsk-ui-kit/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vsk-ui-kit/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/vsk-ui-kit/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/vsk-ui-kit/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/vsk-ui-kit/**/*.ts",
+              "projects/vsk-ui-kit/**/*.html"
+            ],
+            "eslintConfig": "projects/vsk-ui-kit/eslint.config.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

@@ -44,6 +44,27 @@ To execute unit tests with the [Karma](https://karma-runner.github.io) test runn
 ng test
 ```
 
+### Custom Chrome cache or mirror
+
+`npm install` triggers `puppeteer browsers install chrome`, which downloads a dedicated Chrome binary for CI runs. Control two things depending on your build constraints:
+
+- **Cache location:** If the CI host must keep browsers in a writable volume, export `PUPPETEER_CACHE_DIR` (or check in a `.puppeteerrc.cjs` with `cacheDirectory`) before installing dependencies so the binary lands where you expect:
+
+  ```bash
+  PUPPETEER_CACHE_DIR=/mnt/build-cache/puppeteer npm install
+  ```
+
+  Details: [Puppeteer troubleshooting guide](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#could-not-find-expected-browser-locally).
+
+- **Download source (air‑gapped builds):** If the build server cannot reach the public Chrome storage bucket, mirror the [Chrome for Testing](https://github.com/GoogleChromeLabs/chrome-for-testing) archives inside your network and point Puppeteer to that mirror by setting `PUPPETEER_CHROME_DOWNLOAD_BASE_URL` (or defining `chrome.downloadBaseUrl` in `.puppeteerrc.cjs`) **before** running `npm install`:
+
+  ```bash
+  export PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://artifacts.mycorp.local/chrome-for-testing
+  npm install
+  ```
+
+  The value must include the protocol, optional path prefix, and no trailing slash (per [ChromeSettings.downloadBaseUrl](https://github.com/puppeteer/puppeteer/blob/main/docs/api/puppeteer.chromesettings.md)).
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:
