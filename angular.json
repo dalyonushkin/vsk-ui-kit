@@ -54,7 +54,9 @@
               "-d",
               "projects/vsk-ui-kit"
             ],
-            "port": 6006
+            "port": 6006,
+            "host": "0.0.0.0",
+            "open": true
           }
         },
         "build-storybook": {

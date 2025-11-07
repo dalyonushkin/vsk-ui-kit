@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "postinstall": "puppeteer browsers install chrome",
-    "storybook": "ng run vsk-ui-kit:storybook",
+    "storybook": "ng run vsk-ui-kit:storybook --no-open",
     "build-storybook": "ng run vsk-ui-kit:build-storybook"
   },
   "publishConfig": {
