@@ -41,6 +41,36 @@
             ],
             "eslintConfig": "projects/vsk-ui-kit/eslint.config.js"
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/vsk-ui-kit/.storybook",
+            "browserTarget": "vsk-ui-kit:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/vsk-ui-kit"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/vsk-ui-kit/.storybook",
+            "browserTarget": "vsk-ui-kit:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/vsk-ui-kit"
+            ],
+            "outputDir": "storybook-static"
+          }
         }
       }
     }
