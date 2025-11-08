@@ -38,4 +38,20 @@ describe('VskButtonExampleComponent', () => {
     const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
     expect(button.classList.contains('vsk-button--secondary')).toBeTrue();
   });
+
+  it('should propagate complementary aria metadata when provided', () => {
+    fixture.componentRef.setInput('ariaDescribedBy', 'hint');
+    fixture.componentRef.setInput('ariaControls', 'dialog-id');
+    fixture.componentRef.setInput('ariaExpanded', true);
+    fixture.componentRef.setInput('ariaPressed', false);
+    fixture.componentRef.setInput('ariaLive', 'polite');
+    fixture.detectChanges();
+
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(button.getAttribute('aria-describedby')).toBe('hint');
+    expect(button.getAttribute('aria-controls')).toBe('dialog-id');
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(button.getAttribute('aria-pressed')).toBe('false');
+    expect(button.getAttribute('aria-live')).toBe('polite');
+  });
 });
