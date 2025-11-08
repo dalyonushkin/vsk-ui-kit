@@ -98,7 +98,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n  },\n}"
+                "defaultValue": "{\n  parameters: {\n    tags: ['autodocs'],\n    a11y: {\n      options: {\n        /*\n         * Opt in to running WCAG 2.x AAA rules\n         * Note that you must explicitly re-specify the defaults (all but the last array entry)\n         * See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter-examples for more details\n         */\n        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice', 'wcag2aaa'],\n      },\n      config: {\n        standards: {\n          ariaAttrs: {\n            'aria-description': {\n              global: true,\n            },\n            'aria-relevant': {\n        // make the aria-relevant attribute global\n        global: true\n      }\n          }\n        }\n      \n      }\n    },\n    viewport: {\n      options: INITIAL_VIEWPORTS,\n    },\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n    docs: {\n      codePanel: true,\n    },\n  },\n  initialGlobals: {\n    viewport: { value: 'ipad', isRotated: false },\n  },\n}"
             },
             {
                 "name": "Primary",
@@ -129,6 +129,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Test",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    primary: false,\n    label: \"Button\"\n  }\n}"
+            },
+            {
+                "name": "Test1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    primary: false,\n    label: \"Button\"\n  }\n}"
             }
         ],
         "functions": [],
@@ -219,6 +239,26 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
+                },
+                {
+                    "name": "Test",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    primary: false,\n    label: \"Button\"\n  }\n}"
+                },
+                {
+                    "name": "Test1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    primary: false,\n    label: \"Button\"\n  }\n}"
                 }
             ],
             "projects/vsk-ui-kit/src/stories/header.stories.ts": [
@@ -294,7 +334,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\n  parameters: {\n    tags: ['autodocs'],\n    a11y: {\n      options: {\n        /*\n         * Opt in to running WCAG 2.x AAA rules\n         * Note that you must explicitly re-specify the defaults (all but the last array entry)\n         * See https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter-examples for more details\n         */\n        runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice', 'wcag2aaa'],\n      },\n      config: {\n        standards: {\n          ariaAttrs: {\n            'aria-description': {\n              global: true,\n            },\n            'aria-relevant': {\n        // make the aria-relevant attribute global\n        global: true\n      }\n          }\n        }\n      \n      }\n    },\n    viewport: {\n      options: INITIAL_VIEWPORTS,\n    },\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n    docs: {\n      codePanel: true,\n    },\n  },\n  initialGlobals: {\n    viewport: { value: 'ipad', isRotated: false },\n  },\n}"
                 }
             ]
         },
@@ -407,6 +447,26 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Test",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Test1",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
