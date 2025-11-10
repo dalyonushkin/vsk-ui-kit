@@ -1,63 +1,65 @@
-# VskUiKit
+# @vsk/ui-kit
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
+`@vsk/ui-kit` — это монорепозитория для поставки UI‑компонентов VSK, обёрток вокруг Taiga UI и централизованных дизайн‑токенов. Ниже кратко описаны ключевые подходы и сценарии.
 
-## Code scaffolding
+## Архитектура
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Standalone‑библиотека.** Библиотека собирается через `ng-packagr` и распределяется по нескольким entry point’ам:
+  - `@vsk/ui-kit` — собственные компоненты (например, `VskButtonExampleComponent`).
+  - `@vsk/ui-kit/taiga-ui/*` — реэкспорт Taiga UI (kit, core, cdk и т. д.), чтобы потребители подключали конкретные пакеты из единой точки.
+  - `@vsk/ui-kit/tokens` — глобальный поставщик дизайн‑токенов и стилей.
+- **Дизайн‑токены.** Вся кастомизация базируется на Taiga UI: мы импортируем её фонты и глобальные правила, после чего надстраиваем собственные CSS‑переменные для цветов, радиусов, фокуса. Поставщик `provideVskDesignTokens()` добавляет `<style>` в `document.head` и гарантирует единообразные темы в любых приложениях.
 
-```bash
-ng generate component component-name
-```
+## Как подключить библиотеку
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the library, run:
-
-```bash
-ng build vsk-ui-kit
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
+1. Установка пакета (обычно через локальный Verdaccio):
    ```bash
-   cd dist/vsk-ui-kit
+   npm install @vsk/ui-kit
+   ```
+2. Подключение дизайн‑токенов:
+   ```ts
+   import { bootstrapApplication } from '@angular/platform-browser';
+   import { provideVskDesignTokens } from '@vsk/ui-kit/tokens';
+
+   bootstrapApplication(AppComponent, {
+     providers: [provideVskDesignTokens()],
+   });
+   ```
+3. Использование компонентов либо реэкспортов Taiga UI:
+   ```ts
+   import { VskButtonExampleComponent } from '@vsk/ui-kit';
+   import { TuiChip } from '@vsk/ui-kit/taiga-ui/kit';
    ```
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+## Скрипты и процессы
 
-## Running unit tests
+- `npm run build:lib` — сборка всех entry point’ов в `dist/vsk-ui-kit`.
+- `npm run publish:local` — сборка + публикация в локальный npm‑registry (`http://localhost:4873` по умолчанию).
+- `npm run test` — юнит‑тесты.
+- `npm run storybook` / `npm run build-storybook` — Storybook для быстрой проверки визуальных изменений.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Стандарты и стили
 
-```bash
-ng test
-```
+- **Angular 20, standalone API.** Все компоненты используют `standalone: true`, сигнал‑API (`signal`, `computed`), современный контроль (`@if`, `@for`).
+- **Taiga UI.** Не импортируем Taiga напрямую в продуктах, а берём реэкспорт из `@vsk/ui-kit/taiga-ui/*`, чтобы гарантировать синхронизацию версий и токенов.
+- **CSS.** Токены определены на уровне CSS‑переменных (`--vsk-color-primary` и т. п.). Стили можно расширять у потребителя, но вся база должна приезжать из `provideVskDesignTokens()` — так мы централизованно меняем тему.
 
-## Running end-to-end tests
+## Обновления и публикация
 
-For end-to-end (e2e) testing, run:
+1. Вносим изменения/фиксируем версию (`package.json` в корне и внутри `projects/vsk-ui-kit`).
+2. `npm run build:lib`.
+3. `npm run publish:local` или `npm publish` (если отправляем во внешний registry).
+4. В потребителях (например, демо‑приложение внутри `publish-tests/`) обновляем зависимость и проверяем через `npm run build`.
 
-```bash
-ng e2e
-```
+## Тестирование и проверка
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- **Unit.** `ng test`/`npm run test` покрывает компоненты Jest/Karma (пока Karma, см. `karma.conf.js`).
+- **Storybook.** Используем для визуальных smoke‑тестов и документации сценариев `@vsk/ui-kit`.
+- **Пример приложения.** В `publish-tests/vsk-ui-kit-demo` есть Angular‑демо, которое одновременно подключает UI‑компоненты, Taiga‑реэкспорты и дизайн‑токены. Это основной инструмент для проверки, что библиотека работает «как в бою».
 
-## Additional Resources
+## Рекомендации для контрибьюторов
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Соблюдайте [Angular Style Guide](https://angular.dev/style-guide) + внутренние правила (standalone, signals, typed forms).
+- Добавляйте новые публичные части в `projects/vsk-ui-kit/src/public-api.ts` или соответствующий entry point.
+- Если нужно доставить глобальные стили или переопределения, делайте это через `@vsk/ui-kit/tokens`, чтобы потребители автоматически получали обновления.
+- Всегда проверяйте `npm run build:lib` перед публикацией — ng-packagr валидирует публичный API.

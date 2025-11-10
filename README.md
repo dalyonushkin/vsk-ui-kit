@@ -1,6 +1,21 @@
 # VskUiKitWorkspace
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.9.
+This workspace hosts the `@vsk/ui-kit` package plus its secondary entry points (`taiga-ui/*`, `tokens`, etc.). Use the instructions below to work locally and to consume our design tokens from downstream apps.
+
+## Design tokens & Taiga-based global styles
+
+We ship a dedicated entry point that wraps Taiga UI base styles and layers our brand tokens on top:
+
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideVskDesignTokens } from '@vsk/ui-kit/tokens';
+
+bootstrapApplication(AppComponent, {
+  providers: [provideVskDesignTokens()],
+});
+```
+
+`provideVskDesignTokens()` injects a `<style>` block once per document, imports the upstream Taiga fonts/global CSS, and exposes our tuned CSS variables (primary palette, radiuses, focus ring). The same entry point exports `VSK_UI_KIT_TOKENS_CSS` if you need to inline the raw string in Storybook or other host environments.
 
 ## Development server
 
