@@ -3,5 +3,22 @@
   "dest": "../../dist/vsk-ui-kit",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@taiga-ui/addon-charts",
+    "@taiga-ui/addon-commerce",
+    "@taiga-ui/addon-doc",
+    "@taiga-ui/addon-mobile",
+    "@taiga-ui/addon-table",
+    "@taiga-ui/cdk",
+    "@taiga-ui/core",
+    "@taiga-ui/event-plugins",
+    "@taiga-ui/i18n",
+    "@taiga-ui/icons",
+    "@taiga-ui/kit",
+    "@taiga-ui/layout",
+    "@taiga-ui/legacy",
+    "@taiga-ui/polymorpheus",
+    "@taiga-ui/styles"
+  ]
 }

@@ -1,6 +1,92 @@
 {
     "pipes": [],
-    "interfaces": [],
+    "interfaces": [
+        {
+            "name": "TaigaButtonStoryArgs",
+            "id": "interface-TaigaButtonStoryArgs-c8be1b240d0a7843cc82ed39d583d4482104c412994ff452b40c13afd8133eede4c707f881318cc5987503e7375dfb2551be9ab59574d4924f245bd5e606dbd8",
+            "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport type { Meta, StoryObj } from '@storybook/angular';\nimport { TuiButton } from '@vsk/ui-kit/taiga-ui/core';\n\ntype TaigaAppearance = 'primary' | 'secondary' | 'whiteblock' | 'outline' | 'flat' | 'destructive';\ntype TaigaSize = 's' | 'm' | 'l';\n\ninterface TaigaButtonStoryArgs {\n  label: string;\n  appearance: TaigaAppearance;\n  size: TaigaSize;\n  iconLeft?: string;\n  iconRight?: string;\n  disabled: boolean;\n  type: 'button' | 'submit' | 'reset';\n}\n\nconst TAIGA_SNIPPET = `\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`;\n\nconst meta: Meta<TaigaButtonStoryArgs> = {\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n};\n\nexport default meta;\n\ntype Story = StoryObj<TaigaButtonStoryArgs>;\n\nexport const TaigaButtonStory: Story = {\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n};\n",
+            "properties": [
+                {
+                    "name": "appearance",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TaigaAppearance",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "disabled",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "iconLeft",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "iconRight",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "size",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TaigaSize",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "type",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"button\" | \"submit\" | \"reset\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 172,
+            "methods": [],
+            "extends": []
+        }
+    ],
     "injectables": [],
     "guards": [],
     "interceptors": [],
@@ -18,7 +104,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Выполнить действие',\n    ariaLabel: 'Выполнить действие',\n  },\n  play: async ({ canvasElement }) => {\n    const button = canvasElement.querySelector('button');\n    if (!button) {\n      throw new Error('Кнопка не найдена в шаблоне.');\n    }\n\n    button.focus();\n    if (document.activeElement !== button) {\n      throw new Error('Кнопка должна получать фокус.');\n    }\n\n    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Использует встроенный play-функционал Storybook, чтобы запрограммированно кликнуть кнопку и убедиться, что она доступна для фокуса.',\n      },\n    },\n  },\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Выполнить действие',\n    ariaLabel: 'Выполнить действие',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    const button = await canvas.findByRole('button', { name: /выполнить действие/i });\n    await expect(button).toBeEnabled();\n\n    await userEvent.click(button);\n    await expect(button).toHaveFocus();\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Демонстрация Interaction Testing: Storybook программно кликает по кнопке и убеждается, что она остаётся доступной.',\n      },\n    },\n  },\n}"
             },
             {
                 "name": "Large",
@@ -104,11 +190,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TaigaButtonStoryArgs>",
+                "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/vsk-ui-kit/src/lib/vsk-button-example/vsk-button-example.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<VskButtonExampleComponent>",
-                "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['click button'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
             },
             {
                 "name": "preview",
@@ -171,6 +267,26 @@
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
             },
             {
+                "name": "TAIGA_SNIPPET",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`"
+            },
+            {
+                "name": "TaigaButtonStory",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
+            },
+            {
                 "name": "Test",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -198,7 +314,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <p id=\"fee-hint\" style=\"position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;\">\n        Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.\n      </p>\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        ariaDescribedBy=\"fee-hint\"\n        ariaControls=\"confirm-dialog\"\n        [ariaExpanded]=\"false\"\n      ></vsk-button-example>\n    `,\n  }),\n  args: {\n    label: 'Перевести',\n    variant: 'danger',\n    ariaLabel: 'Перевести средства',\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Показывает использование с `aria-describedby`/`aria-controls`, чтобы связать кнопку с дополнительным описанием и целевым диалогом.',\n      },\n    },\n  },\n}"
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <p id=\"fee-hint\" style=\"position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;\">\n        Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.\n      </p>\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        ariaDescribedBy=\"fee-hint\"\n        ariaControls=\"confirm-dialog\"\n        [ariaExpanded]=\"false\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n  args: {\n    label: 'Перевести',\n    variant: 'danger',\n    ariaLabel: 'Перевести средства',\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Показывает использование с `aria-describedby`/`aria-controls`, чтобы связать кнопку с дополнительным описанием и целевым диалогом.',\n      },\n    },\n  },\n}"
             }
         ],
         "functions": [],
@@ -240,12 +356,45 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<TaigaButtonStoryArgs>",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<VskButtonExampleComponent>",
                 "file": "projects/vsk-ui-kit/src/lib/vsk-button-example/vsk-button-example.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
                 "kind": 184
+            },
+            {
+                "name": "TaigaAppearance",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"primary\" | \"secondary\" | \"whiteblock\" | \"outline\" | \"flat\" | \"destructive\"",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "TaigaSize",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"s\" | \"m\" | \"l\"",
+                "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
             }
         ],
         "enumerations": [],
@@ -259,7 +408,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Выполнить действие',\n    ariaLabel: 'Выполнить действие',\n  },\n  play: async ({ canvasElement }) => {\n    const button = canvasElement.querySelector('button');\n    if (!button) {\n      throw new Error('Кнопка не найдена в шаблоне.');\n    }\n\n    button.focus();\n    if (document.activeElement !== button) {\n      throw new Error('Кнопка должна получать фокус.');\n    }\n\n    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Использует встроенный play-функционал Storybook, чтобы запрограммированно кликнуть кнопку и убедиться, что она доступна для фокуса.',\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    label: 'Выполнить действие',\n    ariaLabel: 'Выполнить действие',\n  },\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    const button = await canvas.findByRole('button', { name: /выполнить действие/i });\n    await expect(button).toBeEnabled();\n\n    await userEvent.click(button);\n    await expect(button).toHaveFocus();\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Демонстрация Interaction Testing: Storybook программно кликает по кнопке и убеждается, что она остаётся доступной.',\n      },\n    },\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -269,7 +418,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<VskButtonExampleComponent>",
-                    "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['click button'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "Primary",
@@ -299,7 +448,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <p id=\"fee-hint\" style=\"position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;\">\n        Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.\n      </p>\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        ariaDescribedBy=\"fee-hint\"\n        ariaControls=\"confirm-dialog\"\n        [ariaExpanded]=\"false\"\n      ></vsk-button-example>\n    `,\n  }),\n  args: {\n    label: 'Перевести',\n    variant: 'danger',\n    ariaLabel: 'Перевести средства',\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Показывает использование с `aria-describedby`/`aria-controls`, чтобы связать кнопку с дополнительным описанием и целевым диалогом.',\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <p id=\"fee-hint\" style=\"position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;\">\n        Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.\n      </p>\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        ariaDescribedBy=\"fee-hint\"\n        ariaControls=\"confirm-dialog\"\n        [ariaExpanded]=\"false\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n  args: {\n    label: 'Перевести',\n    variant: 'danger',\n    ariaLabel: 'Перевести средства',\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Показывает использование с `aria-describedby`/`aria-controls`, чтобы связать кнопку с дополнительным описанием и целевым диалогом.',\n      },\n    },\n  },\n}"
                 }
             ],
             "projects/vsk-ui-kit/src/stories/button.stories.ts": [
@@ -438,6 +587,38 @@
                     "defaultValue": "{\n  title: 'Example/Page',\n  component: PageComponent,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
                 }
             ],
+            "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TaigaButtonStoryArgs>",
+                    "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
+                },
+                {
+                    "name": "TAIGA_SNIPPET",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`"
+                },
+                {
+                    "name": "TaigaButtonStory",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
+                }
+            ],
             "projects/vsk-ui-kit/.storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -493,6 +674,41 @@
                     "kind": 184
                 }
             ],
+            "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<TaigaButtonStoryArgs>",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                },
+                {
+                    "name": "TaigaAppearance",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"primary\" | \"secondary\" | \"whiteblock\" | \"outline\" | \"flat\" | \"destructive\"",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "TaigaSize",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"s\" | \"m\" | \"l\"",
+                    "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                }
+            ],
             "projects/vsk-ui-kit/src/lib/vsk-button-example/vsk-button-example.stories.ts": [
                 {
                     "name": "Story",
@@ -523,6 +739,75 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "preview",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "TaigaButtonStoryArgs",
+                "coveragePercent": 0,
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TAIGA_SNIPPET",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TaigaButtonStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "TaigaAppearance",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "TaigaSize",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

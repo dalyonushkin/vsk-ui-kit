@@ -1,10 +1,11 @@
 {
   "name": "@vsk/ui-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build vsk-ui-kit --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:watch": "ng test --watch=true ",
@@ -12,11 +13,17 @@
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "postinstall": "puppeteer browsers install chrome",
     "storybook": "ng run vsk-ui-kit:storybook --no-open",
-    "build-storybook": "ng run vsk-ui-kit:build-storybook"
+    "build-storybook": "ng run vsk-ui-kit:build-storybook",
+    "prepublishOnly": "npm run build:lib",
+    "publish:local": "npm publish --registry http://localhost:4873/"
   },
   "publishConfig": {
-    "registry": "https://repo.vsk.ru/repository/npm-hosted/"
+    "registry": "http://localhost:4873/"
   },
+  "files": [
+    "dist/vsk-ui-kit/**/*",
+    "README.md"
+  ],
   "module": "dist/vsk-ui-kit/fesm2022/vsk-ui-kit.mjs",
   "typings": "dist/vsk-ui-kit/index.d.ts",
     "exports": {
@@ -29,44 +36,44 @@
       "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-tokens.mjs"
     },
     "./taiga-ui/core": {
-      "types": "./dist/vsk-ui-kit/taiga-ui-core/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui-core/vsk-ui-kit-taiga-ui-core.mjs"
+      "types": "./dist/vsk-ui-kit/taiga-ui/core/index.d.ts",
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-core.mjs"
     },
     "./taiga-ui/kit": {
-      "types": "./dist/vsk-ui-kit/taiga-ui-kit/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui-kit/vsk-ui-kit-taiga-ui-kit.mjs"
+      "types": "./dist/vsk-ui-kit/taiga-ui/kit/index.d.ts",
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-kit.mjs"
     },
     "./taiga-ui/cdk": {
-      "types": "./dist/vsk-ui-kit/taiga-ui-cdk/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui-cdk/vsk-ui-kit-taiga-ui-cdk.mjs"
+      "types": "./dist/vsk-ui-kit/taiga-ui/cdk/index.d.ts",
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-cdk.mjs"
     },
     "./taiga-ui/icons": {
       "types": "./dist/vsk-ui-kit/taiga-ui/icons/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/icons/vsk-ui-kit-taiga-ui-icons.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-icons.mjs"
     },
     "./taiga-ui/addon-charts": {
       "types": "./dist/vsk-ui-kit/taiga-ui/addon-charts/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/addon-charts/vsk-ui-kit-taiga-ui-addon-charts.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-addon-charts.mjs"
     },
     "./taiga-ui/addon-commerce": {
       "types": "./dist/vsk-ui-kit/taiga-ui/addon-commerce/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/addon-commerce/vsk-ui-kit-taiga-ui-addon-commerce.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-addon-commerce.mjs"
     },
     "./taiga-ui/addon-mobile": {
       "types": "./dist/vsk-ui-kit/taiga-ui/addon-mobile/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/addon-mobile/vsk-ui-kit-taiga-ui-addon-mobile.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-addon-mobile.mjs"
     },
     "./taiga-ui/addon-table": {
       "types": "./dist/vsk-ui-kit/taiga-ui/addon-table/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/addon-table/vsk-ui-kit-taiga-ui-addon-table.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-addon-table.mjs"
     },
     "./taiga-ui/addon-doc": {
       "types": "./dist/vsk-ui-kit/taiga-ui/addon-doc/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/addon-doc/vsk-ui-kit-taiga-ui-addon-doc.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-addon-doc.mjs"
     },
     "./taiga-ui/layout": {
       "types": "./dist/vsk-ui-kit/taiga-ui/layout/index.d.ts",
-      "default": "./dist/vsk-ui-kit/fesm2022/taiga-ui/layout/vsk-ui-kit-taiga-ui-layout.mjs"
+      "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-layout.mjs"
     },
     "./package.json": {
       "default": "./package.json"
@@ -84,7 +91,6 @@
       }
     ]
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
