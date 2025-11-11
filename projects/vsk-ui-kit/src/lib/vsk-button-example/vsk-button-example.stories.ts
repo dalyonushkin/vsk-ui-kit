@@ -14,6 +14,10 @@ const meta: Meta<VskButtonExampleComponent> = {
     }),
   ],
   parameters: {
+     design: {
+    type: "figma",
+    url: "https://www.figma.com/design/f0bA6l4GAGQCY5Tdit66lh/C%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-UI-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D0%9B%D0%9A%D0%9F?node-id=450-43503&t=EE5Y1oJyrCGHeEm4-4",
+  },
     docs: {
       description: {
         component:

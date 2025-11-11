@@ -9,6 +9,8 @@ const preview: Preview = {
   parameters: {
     tags: ['autodocs'],
     a11y: {
+      // todo включить после деплоя 
+     // test: 'error', // Fail all accessibility tests when violations are found
       options: {
         /*
          * Opt in to running WCAG 2.x AAA rules
