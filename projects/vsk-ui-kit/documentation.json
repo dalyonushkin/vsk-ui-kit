@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "TaigaButtonStoryArgs",
-            "id": "interface-TaigaButtonStoryArgs-c8be1b240d0a7843cc82ed39d583d4482104c412994ff452b40c13afd8133eede4c707f881318cc5987503e7375dfb2551be9ab59574d4924f245bd5e606dbd8",
+            "id": "interface-TaigaButtonStoryArgs-03ce3250c51fede4f29cadde6b878e9a909e590dfc8e29e65ce5d4d673b5e8d4033a63c7cfa89ae8556325208b2fdf6a1a49dfa5f61a8332d45418d1c3798293",
             "file": "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport type { Meta, StoryObj } from '@storybook/angular';\nimport { TuiButton } from '@vsk/ui-kit/taiga-ui/core';\n\ntype TaigaAppearance = 'primary' | 'secondary' | 'whiteblock' | 'outline' | 'flat' | 'destructive';\ntype TaigaSize = 's' | 'm' | 'l';\n\ninterface TaigaButtonStoryArgs {\n  label: string;\n  appearance: TaigaAppearance;\n  size: TaigaSize;\n  iconLeft?: string;\n  iconRight?: string;\n  disabled: boolean;\n  type: 'button' | 'submit' | 'reset';\n}\n\nconst TAIGA_SNIPPET = `\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`;\n\nconst meta: Meta<TaigaButtonStoryArgs> = {\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n};\n\nexport default meta;\n\ntype Story = StoryObj<TaigaButtonStoryArgs>;\n\nexport const TaigaButtonStory: Story = {\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n};\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport type { Meta, StoryObj } from '@storybook/angular';\nimport { TuiButton } from '@vsk/ui-kit/taiga-ui/core';\n\ntype TaigaAppearance = 'primary' | 'secondary' | 'whiteblock' | 'outline' | 'flat' | 'destructive';\ntype TaigaSize = 's' | 'm' | 'l';\n\ninterface TaigaButtonStoryArgs {\n  label: string;\n  appearance: TaigaAppearance;\n  size: TaigaSize;\n  disabled: boolean;\n  type: 'button' | 'submit' | 'reset';\n}\n\nconst TAIGA_SNIPPET = `\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n>\n  Скачать выписку\n</button>\n`;\n\nconst meta: Meta<TaigaButtonStoryArgs> = {\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs','alpha'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n};\n\nexport default meta;\n\ntype Story = StoryObj<TaigaButtonStoryArgs>;\n\nexport const TaigaButtonStory: Story = {\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n};\n",
             "properties": [
                 {
                     "name": "appearance",
@@ -28,27 +28,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
-                },
-                {
-                    "name": "iconLeft",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": true,
-                    "description": "",
                     "line": 12
-                },
-                {
-                    "name": "iconRight",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": true,
-                    "description": "",
-                    "line": 13
                 },
                 {
                     "name": "label",
@@ -78,7 +58,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 13
                 }
             ],
             "indexSignatures": [],
@@ -170,6 +150,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'Docs/Руководство по разработке',\n  tags: ['docs', 'status:ready'],\n  parameters: {\n    status: 'Ready',\n    layout: 'padded',\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/vsk-ui-kit/src/stories/header.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -194,7 +184,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TaigaButtonStoryArgs>",
-                "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
+                "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs','alpha'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
             },
             {
                 "name": "meta",
@@ -204,7 +194,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<VskButtonExampleComponent>",
-                "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs','experimental'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
             },
             {
                 "name": "preview",
@@ -267,6 +257,16 @@
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
             },
             {
+                "name": "StorybookНастройка",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Storybook</h2>\n      <ul>\n        <li><code>staticDirs: ['../tokens/src/styles']</code> — CSS доступен по <code>/vsk-taiga.css</code>.</li>\n        <li><code>preview-head.html</code> содержит ссылку: <code>&lt;link rel=\"stylesheet\" href=\"/vsk-taiga.css\" /&gt;</code>.</li>\n        <li><code>npm run storybook</code> запускает watcher стилей и Storybook через <code>concurrently</code>.</li>\n      </ul>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Все истории используют одинаковые стили, watcher перегенерирует CSS.',\n      },\n    },\n  },\n}"
+            },
+            {
                 "name": "TAIGA_SNIPPET",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -274,7 +274,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`"
+                "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n>\n  Скачать выписку\n</button>\n`"
             },
             {
                 "name": "TaigaButtonStory",
@@ -284,7 +284,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
             },
             {
                 "name": "Test",
@@ -315,6 +315,66 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <p id=\"fee-hint\" style=\"position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;\">\n        Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.\n      </p>\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        ariaDescribedBy=\"fee-hint\"\n        ariaControls=\"confirm-dialog\"\n        [ariaExpanded]=\"false\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n  args: {\n    label: 'Перевести',\n    variant: 'danger',\n    ariaLabel: 'Перевести средства',\n  },\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Показывает использование с `aria-describedby`/`aria-controls`, чтобы связать кнопку с дополнительным описанием и целевым диалогом.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "wrapper",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "(content: string) => ({\n  template: `<article class=\"docs-article\">${content}</article>`,\n})"
+            },
+            {
+                "name": "Демоприложение",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Demo (publish-tests/vsk-ui-kit-demo)</h2>\n      <ol>\n        <li>Зависимость <code>@vsk/ui-kit</code> указывает на локальный Verdaccio.</li>\n        <li>В <code>angular.json</code> добавлен <code>@vsk/ui-kit/tokens/styles/vsk-taiga.less</code>.</li>\n        <li><code>app.ts</code> показывает пример, а сниппет в интерфейсе напоминает про запись в <code>styles</code>.</li>\n      </ol>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Как проверяем библиотеку на живом приложении.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "ДизайнТокены",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Дизайн-токены и стили</h2>\n      <p>Базовый файл <code>@vsk/ui-kit/tokens/styles/vsk-taiga.less</code> импортирует шрифты и темы Taiga и добавляет слой VSK.</p>\n      <h3>Подключение в приложениях</h3>\n      <pre><code>\"styles\": [\n  \"src/styles.scss\",\n  \"@vsk/ui-kit/tokens/styles/vsk-taiga.less\"\n]</code></pre>\n      <p>При сборке создаём CSS (<code>vsk-taiga.css</code>) и выдаём его как статику для Storybook. Инлайн-стилей в компонентах избегаем.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'LESS + CSS поставляются централизованно.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "Обзор",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Единый подход</h2>\n      <p>В монорепозитории <code>@vsk/ui-kit</code> компоненты, реэкспорты Taiga UI и дизайн-токены живут рядом. Мы поддерживаем единообразные стили и статусы историй.</p>\n      <h3>Статусы в историях</h3>\n      <ul>\n        <li><code>status:ready</code> — компонент готов к использованию.</li>\n        <li><code>status:wip</code> — работа в процессе, API может измениться.</li>\n        <li><code>status:banned</code> — использовать запрещено (заменить, обсудить).</li>\n      </ul>\n      <p>Теги указываем в поле <code>tags</code> (например, <code>['autodocs', 'status:wip']</code>), дублируем в <code>parameters.status</code> для общего списка.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Общие правила и статусы Storybook.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "РеэкспортTaiga",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Реэкспорт Taiga UI</h2>\n      <ol>\n        <li>Импортируем всё из <code>@vsk/ui-kit/taiga-ui/*</code>, а не напрямую из Taiga.</li>\n        <li>Storybook и демо используют те же entry point'ы, чтобы проверять реальный сценарий.</li>\n        <li>При добавлении нового пакета Taiga создаём дополнительный entry point и обновляем <code>exports</code> в корневом <code>package.json</code>.</li>\n      </ol>\n      <pre><code>import { TuiButton } from '@vsk/ui-kit/taiga-ui/core';\nimport { TuiChip } from '@vsk/ui-kit/taiga-ui/kit';</code></pre>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Почему используем единые entry points.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "СборкаИПубликация",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Сборка и публикация</h2>\n      <ol>\n        <li><strong>build</strong>: <code>npm run build:lib</code> (генерация FESM/типингов + CSS).</li>\n        <li><strong>storybook</strong>: <code>npm run storybook</code> (watcher + UI).</li>\n        <li><strong>publish</strong>: обновляем версии, <code>npm run publish:local</code> (или <code>npm publish</code>).</li>\n      </ol>\n      <p>Скрипты <code>tokens:watch</code> и <code>storybook</code> уже настроены на <code>concurrently</code>.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Пошаговая схема подготовки релиза.',\n      },\n    },\n  },\n}"
             }
         ],
         "functions": [],
@@ -325,6 +385,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<ButtonComponent>",
                 "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -418,7 +489,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<VskButtonExampleComponent>",
-                    "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  title: 'Atoms/Vsk Button Example',\n  component: VskButtonExampleComponent,\n  tags: ['autodocs','experimental'],\n  decorators: [\n    applicationConfig({\n      providers: [],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Референсная кнопка с WCAG‑совместимыми атрибутами и предопределёнными вариантами оформления.',\n      },\n    },\n    actions: {\n      handles: ['pressed'],\n    },\n  },\n  argTypes: {\n    variant: {\n      options: ['primary', 'secondary', 'danger'],\n      control: { type: 'radio' },\n    },\n    size: {\n      options: ['md', 'lg'],\n      control: { type: 'radio' },\n    },\n    block: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    pressed: { action: 'pressed' },\n  },\n  args: {\n    label: 'Отправить заявку',\n    variant: 'primary',\n    size: 'md',\n    ariaLabel: 'Отправить заявку',\n    block: false,\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <vsk-button-example\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [size]=\"size\"\n        [block]=\"block\"\n        [disabled]=\"disabled\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaDescribedBy]=\"ariaDescribedBy\"\n        [ariaControls]=\"ariaControls\"\n        [ariaExpanded]=\"ariaExpanded\"\n        [ariaPressed]=\"ariaPressed\"\n        [ariaLive]=\"ariaLive\"\n        (pressed)=\"pressed($event)\"\n      ></vsk-button-example>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "Primary",
@@ -587,6 +658,88 @@
                     "defaultValue": "{\n  title: 'Example/Page',\n  component: PageComponent,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
                 }
             ],
+            "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'Docs/Руководство по разработке',\n  tags: ['docs', 'status:ready'],\n  parameters: {\n    status: 'Ready',\n    layout: 'padded',\n  },\n}"
+                },
+                {
+                    "name": "StorybookНастройка",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Storybook</h2>\n      <ul>\n        <li><code>staticDirs: ['../tokens/src/styles']</code> — CSS доступен по <code>/vsk-taiga.css</code>.</li>\n        <li><code>preview-head.html</code> содержит ссылку: <code>&lt;link rel=\"stylesheet\" href=\"/vsk-taiga.css\" /&gt;</code>.</li>\n        <li><code>npm run storybook</code> запускает watcher стилей и Storybook через <code>concurrently</code>.</li>\n      </ul>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Все истории используют одинаковые стили, watcher перегенерирует CSS.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "wrapper",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "(content: string) => ({\n  template: `<article class=\"docs-article\">${content}</article>`,\n})"
+                },
+                {
+                    "name": "Демоприложение",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Demo (publish-tests/vsk-ui-kit-demo)</h2>\n      <ol>\n        <li>Зависимость <code>@vsk/ui-kit</code> указывает на локальный Verdaccio.</li>\n        <li>В <code>angular.json</code> добавлен <code>@vsk/ui-kit/tokens/styles/vsk-taiga.less</code>.</li>\n        <li><code>app.ts</code> показывает пример, а сниппет в интерфейсе напоминает про запись в <code>styles</code>.</li>\n      </ol>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Как проверяем библиотеку на живом приложении.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "ДизайнТокены",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Дизайн-токены и стили</h2>\n      <p>Базовый файл <code>@vsk/ui-kit/tokens/styles/vsk-taiga.less</code> импортирует шрифты и темы Taiga и добавляет слой VSK.</p>\n      <h3>Подключение в приложениях</h3>\n      <pre><code>\"styles\": [\n  \"src/styles.scss\",\n  \"@vsk/ui-kit/tokens/styles/vsk-taiga.less\"\n]</code></pre>\n      <p>При сборке создаём CSS (<code>vsk-taiga.css</code>) и выдаём его как статику для Storybook. Инлайн-стилей в компонентах избегаем.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'LESS + CSS поставляются централизованно.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "Обзор",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Единый подход</h2>\n      <p>В монорепозитории <code>@vsk/ui-kit</code> компоненты, реэкспорты Taiga UI и дизайн-токены живут рядом. Мы поддерживаем единообразные стили и статусы историй.</p>\n      <h3>Статусы в историях</h3>\n      <ul>\n        <li><code>status:ready</code> — компонент готов к использованию.</li>\n        <li><code>status:wip</code> — работа в процессе, API может измениться.</li>\n        <li><code>status:banned</code> — использовать запрещено (заменить, обсудить).</li>\n      </ul>\n      <p>Теги указываем в поле <code>tags</code> (например, <code>['autodocs', 'status:wip']</code>), дублируем в <code>parameters.status</code> для общего списка.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Общие правила и статусы Storybook.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "РеэкспортTaiga",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Реэкспорт Taiga UI</h2>\n      <ol>\n        <li>Импортируем всё из <code>@vsk/ui-kit/taiga-ui/*</code>, а не напрямую из Taiga.</li>\n        <li>Storybook и демо используют те же entry point'ы, чтобы проверять реальный сценарий.</li>\n        <li>При добавлении нового пакета Taiga создаём дополнительный entry point и обновляем <code>exports</code> в корневом <code>package.json</code>.</li>\n      </ol>\n      <pre><code>import { TuiButton } from '@vsk/ui-kit/taiga-ui/core';\nimport { TuiChip } from '@vsk/ui-kit/taiga-ui/kit';</code></pre>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Почему используем единые entry points.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "СборкаИПубликация",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () =>\n    wrapper(`\n      <h2>Сборка и публикация</h2>\n      <ol>\n        <li><strong>build</strong>: <code>npm run build:lib</code> (генерация FESM/типингов + CSS).</li>\n        <li><strong>storybook</strong>: <code>npm run storybook</code> (watcher + UI).</li>\n        <li><strong>publish</strong>: обновляем версии, <code>npm run publish:local</code> (или <code>npm publish</code>).</li>\n      </ol>\n      <p>Скрипты <code>tokens:watch</code> и <code>storybook</code> уже настроены на <code>concurrently</code>.</p>\n    `),\n  parameters: {\n    docs: {\n      description: {\n        story: 'Пошаговая схема подготовки релиза.',\n      },\n    },\n  },\n}"
+                }
+            ],
             "projects/vsk-ui-kit/src/lib/taiga-stories/taiga-button.stories.ts": [
                 {
                     "name": "meta",
@@ -596,7 +749,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TaigaButtonStoryArgs>",
-                    "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    iconLeft: {\n      control: 'text',\n      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',\n      name: 'iconLeft'\n    },\n    iconRight: {\n      control: 'text',\n      description: 'Правая иконка',\n      name: 'iconRight'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
+                    "defaultValue": "{\n  title: 'Taiga UI/Button',\n // component: TuiButton,\n  tags: ['autodocs','alpha'],\n  parameters: {\n    status: 'Ready',\n    docs: {\n      description: {\n        component:\n          'Готовая кнопка из Taiga UI, доступная через реэкспорт `@vsk/ui-kit/taiga-ui/kit`. Компонент наследует WCAG 2.2 AA стили (фокус, контраст, размеры) из глобальных стилей Taiga и поддерживает полный набор входных параметров.'\n      }\n    },\n    layout: 'centered'\n  },\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Текст кнопки',\n      name: 'label'\n    },\n    appearance: {\n      control: 'select',\n      options: ['primary', 'secondary', 'whiteblock', 'outline', 'flat', 'destructive','accent'],\n      description: 'Стандартные темы Taiga UI',\n      name: 'appearance'\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['s', 'm', 'l'],\n      description: 'Высота кнопки',\n      name: 'size'\n    },\n    disabled: {\n      control: 'boolean',\n      description: 'Отключает кнопку',\n      name: 'disabled'\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['button', 'submit', 'reset'],\n      name: 'type'\n    }\n  }\n}"
                 },
                 {
                     "name": "TAIGA_SNIPPET",
@@ -606,7 +759,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n  iconLeft=\"tuiIconCalendar\"\n>\n  Скачать выписку\n</button>\n`"
+                    "defaultValue": "`\\\n<button\n  tuiButton\n  type=\"button\"\n  appearance=\"primary\"\n  size=\"m\"\n>\n  Скачать выписку\n</button>\n`"
                 },
                 {
                     "name": "TaigaButtonStory",
@@ -616,7 +769,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    iconLeft: 'tuiIconDownload',\n    iconRight: '',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    label: 'Скачать выписку',\n    appearance: 'primary',\n    size: 'm',\n    disabled: false,\n    type: 'button'\n  },\n  render: (args) => ({\n    props: args,\n    moduleMetadata: {\n      imports: [CommonModule, TuiButton]\n    },\n    template: `\n      <button\n        tuiButton\n        [attr.type]=\"type\"\n        [appearance]=\"appearance\"\n        [size]=\"size\"\n        [iconLeft]=\"iconLeft || null\"\n        [iconRight]=\"iconRight || null\"\n        [disabled]=\"disabled\"\n      >\n        {{ label }}\n      </button>\n    `\n  }),\n  parameters: {\n    docs: {\n      description: {\n        story:\n          'Taiga UI кнопка с поддержкой всех основных свойств: `appearance`, `size`, `iconLeft`, `iconRight`, `type` и `disabled`. Значения можно скопировать и использовать напрямую в продуктах.'\n      },\n      source: {\n        code: TAIGA_SNIPPET\n      }\n    }\n  }\n}"
                 }
             ],
             "projects/vsk-ui-kit/.storybook/preview.ts": [
@@ -642,6 +795,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<ButtonComponent>",
                     "file": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -749,7 +915,7 @@
                 "linktype": "interface",
                 "name": "TaigaButtonStoryArgs",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -944,6 +1110,96 @@
             },
             {
                 "filePath": "projects/vsk-ui-kit/src/stories/button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "StorybookНастройка",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "wrapper",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Демоприложение",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ДизайнТокены",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Обзор",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "РеэкспортTaiga",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "СборкаИПубликация",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/vsk-ui-kit/src/stories/development-handbook.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

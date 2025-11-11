@@ -1,0 +1,114 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Docs/Руководство по разработке"
+  tags={['docs', 'status:ready']}
+  parameters={{ layout: 'fullscreen' }}
+/>
+
+# Руководство по разработке VSK UI Kit
+
+> Этот документ описывает полный цикл работы с `@vsk/ui-kit`: от реэкспортов и токенов до Storybook и демо-проекта. Документ хранится рядом с кодом, поэтому всегда актуален.
+
+---
+
+## 1. Система статусов и тегов
+
+Используем [storybook-addon-tag-badges](https://storybook.js.org/addons/storybook-addon-tag-badges). Теги задаём в `tags`, без дублирования в `parameters` — аддон сам добавит бейдж.
+
+- `new` — недавно добавленные компоненты/фичи.
+- `alpha`, `beta`, `rc`, `experimental` — компонент нестабилен.
+- `deprecated` — не использовать в новом коде.
+- `outdated` — дизайн уже изменился, требуется доработка.
+- `danger` — требует особого внимания (безопасность, доступы и т. д.).
+- `code-only` — компонент существует только в коде.
+- `version:*` — собственная версия компонента.
+
+Пример:
+
+```ts
+const meta: Meta = {
+  tags: ['autodocs', 'beta'],
+};
+```
+
+> Одной истории может соответствовать несколько тегов, например `['autodocs', 'beta', 'outdated']`.
+
+---
+
+## 2. Реэкспорт Taiga UI
+
+1. **Единая точка входа.** Все зависимости Taiga UI импортируем из `@vsk/ui-kit/taiga-ui/*`. Это гарантирует одну версию и позволяет централизованно переопределять стили.
+2. **Истории и демо используют те же entry points.** Если реэкспорт сломан, замечаем это до публикации.
+3. **Добавление нового пакета.** Создаём подпапку в `projects/vsk-ui-kit/taiga-ui/*`, обновляем `exports` в корневом `package.json`, пересобираем библиотеку.
+
+```ts
+import { TuiButton } from '@vsk/ui-kit/taiga-ui/core';
+import { TuiChip } from '@vsk/ui-kit/taiga-ui/kit';
+```
+
+---
+
+## 3. Дизайн‑токены и стили
+
+### 3.1 Что такое `vsk-taiga.less`
+
+- Лежит в пакете `@vsk/ui-kit/tokens/styles` и содержит все переменные/темы VSK.
+- Подключает шрифты и базовые темы Taiga, затем добавляет корпоративные токены.
+- При `npm run build:lib` генерирует и `.less`, и `.css` версию (CSS необходим Storybook и приложениям без LESS).
+
+### 3.2 Как использовать токены
+
+1. **Подключение в приложении (Angular CLI).** Открой `angular.json` → `projects.<имя>.architect.build.options.styles` и добавь:
+   ```jsonc
+   "styles": [
+     "src/styles.scss",
+     "@vsk/ui-kit/tokens/styles/vsk-taiga.less"
+   ]
+   ```
+   После сохранения запусти `ng serve` — Angular CLI сам соберёт LESS.
+2. **Изменения в библиотеке.** Все стили правим только в `projects/vsk-ui-kit/tokens/src/styles/vsk-taiga.less`. Старайся описывать переменные (комментариями) и использовать префикс `--vsk-`.
+3. **Проверка.** После правок всегда выполняй `npm run build:lib`, чтобы убедиться, что LESS компилируется.
+4. **Документация.** Добавь пример в Storybook (историю или MDX), чтобы остальные разработчики увидели новый токен.
+
+### 3.3 Watcher и сборка
+
+- `npm run build:lib` — собирает FESM/типинги, генерирует `vsk-taiga.less/css` и кладёт их в `dist`.
+- `npm run tokens:watch` — наблюдает за `projects/vsk-ui-kit/tokens/src/styles/**/*.less` (библиотека `chokidar`). Любая правка вызывает пересборку CSS.
+- `npm run storybook` — автоматически запускает watcher (`npm:tokens:watch`) и Storybook (`npm:storybook:serve`) через `concurrently -k`. В логах видно сообщения вида `[tokens] styles built (change)`.
+
+Если Storybook не обновляет стили, останови процесс (`Ctrl+C`), запусти `npm run build:lib`, затем `npm run storybook`.
+
+---
+
+## 4. Storybook
+
+1. `.storybook/main.ts` содержит `staticDirs: ['../tokens/src/styles']`, поэтому CSS доступен по `/vsk-taiga.css`.
+2. `preview-head.html` подключает `<link rel="stylesheet" href="/vsk-taiga.css" />` — истории используют те же стили, что и библиотека.
+3. Документацию пишем в MDX (как этот файл) или через stories с тегом `docs`.
+4. Скрипты:
+   - `npm run storybook:serve` — запускает Storybook без watchera.
+   - `npm run storybook` — Storybook + watcher стилей (рекомендовано для разработки).
+
+> Важно: в историях импортируем компоненты только из `@vsk/ui-kit/*`, чтобы реальные реэкспорты проверялись автоматически.
+
+---
+
+## 5. Сборка и публикация
+
+1. Обнови версии (корневой `package.json` и `projects/vsk-ui-kit/package.json`).
+2. Выполни `npm run build:lib`.
+3. Проверь Storybook (`npm run storybook`) или любой тестовый экран.
+4. Опубликуй пакет (`npm run publish:local` или `npm publish`).
+5. После релиза обнови одного из потребителей и собери его (`npm install @vsk/ui-kit@<версия>` → `npm run build`).
+
+---
+
+## 7. Быстрые ссылки
+
+- Репозиторий документации Taiga UI: https://taiga-ui.dev.
+- Storybook addon tag badges: https://storybook.js.org/addons/storybook-addon-tag-badges.
+- Наши entry points: `@vsk/ui-kit`, `@vsk/ui-kit/taiga-ui/*`, `@vsk/ui-kit/tokens`, `@vsk/ui-kit/tokens/styles/vsk-taiga.less`.
+- Скрипты: `build:lib`, `tokens:watch`, `storybook`, `publish:local`.
+
+> Любые новые практики документируем в этом файле, чтобы команда и потребители библиотеки всегда имели актуальную информацию.
