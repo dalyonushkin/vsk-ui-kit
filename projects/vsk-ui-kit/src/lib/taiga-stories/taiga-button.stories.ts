@@ -92,8 +92,6 @@ export const TaigaButtonStory: Story = {
         [attr.type]="type"
         [appearance]="appearance"
         [size]="size"
-        [iconLeft]="iconLeft || null"
-        [iconRight]="iconRight || null"
         [disabled]="disabled"
       >
         {{ label }}
