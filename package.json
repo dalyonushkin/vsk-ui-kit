@@ -1,11 +1,11 @@
 {
   "name": "@vsk/ui-kit",
-  "version": "0.1.5",
+  "version": "0.1.12",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build vsk-ui-kit --configuration production",
+    "build:lib": "ng build vsk-ui-kit --configuration production && node tools/copy-token-styles.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:watch": "ng test --watch=true ",
@@ -75,6 +75,9 @@
       "types": "./dist/vsk-ui-kit/taiga-ui/layout/index.d.ts",
       "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit-taiga-ui-layout.mjs"
     },
+    "./tokens/styles/vsk-taiga.less": {
+      "default": "./dist/vsk-ui-kit/styles/vsk-taiga.less"
+    },
     "./package.json": {
       "default": "./package.json"
     }
@@ -118,6 +121,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "less": "^4.2.0",
     "@angular-devkit/build-angular": "^20.3.9",
     "@angular/build": "^20.3.9",
     "@angular/cli": "^20.3.9",

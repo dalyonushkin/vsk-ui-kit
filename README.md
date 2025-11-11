@@ -4,7 +4,27 @@ This workspace hosts the `@vsk/ui-kit` package plus its secondary entry points (
 
 ## Design tokens & Taiga-based global styles
 
-We ship a dedicated entry point that wraps Taiga UI base styles and layers our brand tokens on top:
+Мы поставляем единый провайдер, который загружает базовые стили Taiga UI (шрифты + глобальные правила) и поверх них добавляет наши токены. Вариант подключения через Angular CLI (аналогично официальной инструкции Taiga):
+
+```jsonc
+{
+  "projects": {
+    "my-project": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "@vsk/ui-kit/tokens/styles/vsk-taiga.less"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Затем активируйте провайдер один раз:
 
 ```ts
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -15,7 +35,7 @@ bootstrapApplication(AppComponent, {
 });
 ```
 
-`provideVskDesignTokens()` injects a `<style>` block once per document, imports the upstream Taiga fonts/global CSS, and exposes our tuned CSS variables (primary palette, radiuses, focus ring). The same entry point exports `VSK_UI_KIT_TOKENS_CSS` if you need to inline the raw string in Storybook or other host environments.
+`provideVskDesignTokens()` injects a `<style>` block once per document with нашими CSS‑переменными (палитра, радиусы, фокус) и под капотом добавляет `<link>` на собранный CSS (`vsk-taiga.css`). При необходимости можно забрать строковое значение через `VSK_UI_KIT_TOKENS_CSS` и вставить его вручную (например, в Storybook iframe).
 
 ## Development server
 

@@ -1,7 +1,8 @@
-import type { Preview } from '@storybook/angular'
-import { setCompodocJson } from "@storybook/addon-docs/angular";
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS,DEFAULT_VIEWPORT} from 'storybook/viewport';
-import docJson from "../documentation.json";
+import type { Preview } from '@storybook/angular';
+import { setCompodocJson } from '@storybook/addon-docs/angular';
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport';
+import docJson from '../documentation.json';
+import '@vsk/ui-kit/tokens/styles/vsk-taiga.css';
 
 setCompodocJson(docJson);
 
@@ -31,7 +32,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      options: {...MINIMAL_VIEWPORTS,...INITIAL_VIEWPORTS},
+      options: { ...MINIMAL_VIEWPORTS, ...INITIAL_VIEWPORTS },
     },
     controls: {
       matchers: {

@@ -1,1 +1,1 @@
-export * from './lib/provide-vsk-design-tokens';
+export * from './lib/styles-entry';

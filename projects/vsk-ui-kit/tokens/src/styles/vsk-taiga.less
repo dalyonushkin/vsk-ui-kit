@@ -1,16 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import {
-  ENVIRONMENT_INITIALIZER,
-  EnvironmentProviders,
-  inject,
-  makeEnvironmentProviders,
-} from '@angular/core';
-
-const STYLE_ELEMENT_ID = 'vsk-ui-kit-design-tokens';
-
-export const VSK_UI_KIT_TOKENS_CSS = /* css */ `
-@import url('@taiga-ui/styles/taiga-ui-fonts.css');
-@import url('@taiga-ui/styles/taiga-ui-global.css');
+@import '@taiga-ui/core/styles/taiga-ui-fonts.less';
+@import '@taiga-ui/core/styles/taiga-ui-theme.less';
+@import '@taiga-ui/addon-mobile/styles/taiga-ui-mobile.less';
 
 @layer vsk-ui-kit.tokens {
   :root {
@@ -23,7 +13,6 @@ export const VSK_UI_KIT_TOKENS_CSS = /* css */ `
     --vsk-radius-pill: 999px;
     --vsk-shadow-focus: 0 0 0 3px rgba(16, 69, 174, 0.35);
 
-    /* Map to Taiga tokens */
     --tui-primary: var(--vsk-color-primary);
     --tui-primary-hover: var(--vsk-color-primary-hover);
     --tui-primary-active: #002266;
@@ -49,17 +38,6 @@ export const VSK_UI_KIT_TOKENS_CSS = /* css */ `
     border-radius: var(--vsk-radius-pill);
   }
 
-  tui-chip[aria-pressed='true'],
-  [tuiChip][aria-pressed='true'] {
-    border-radius: 1px !important;
-    border-color: red !important;
-    border-width: 29px !important;
-    border-style: solid !important;
-  }
-[tuiChip][aria-pressed='true'] {
-  border-radius: 1px;
-  border-color: red;
-}
   :focus-visible {
     outline: none;
     box-shadow: var(--vsk-shadow-focus);
@@ -90,25 +68,12 @@ export const VSK_UI_KIT_TOKENS_CSS = /* css */ `
     }
   }
 }
-`;
 
-export function provideVskDesignTokens(): EnvironmentProviders {
-  return makeEnvironmentProviders([
-    {
-      provide: ENVIRONMENT_INITIALIZER,
-      multi: true,
-      useValue: () => {
-        const document = inject(DOCUMENT);
-
-        if (document.getElementById(STYLE_ELEMENT_ID)) {
-          return;
-        }
-
-        const styleElement = document.createElement('style');
-        styleElement.id = STYLE_ELEMENT_ID;
-        styleElement.textContent = VSK_UI_KIT_TOKENS_CSS;
-        document.head.appendChild(styleElement);
-      },
-    },
-  ]);
+/* пример переопределения стилей тайги, без !important не все доезжает */
+/*
+tui-chip[aria-pressed='true'],
+[tuiChip][aria-pressed='true'] {
+  border-radius: 1px !important;
+  border: 2px solid red!important;
 }
+*/

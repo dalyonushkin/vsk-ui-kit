@@ -16,13 +16,16 @@
     "module": "preserve",
     "paths": {
       "@vsk/ui-kit": [
-        "./dist/vsk-ui-kit"
+        "./projects/vsk-ui-kit/src/public-api.ts"
       ],
       "@vsk/ui-kit/*": [
-        "./dist/vsk-ui-kit/*"
+        "./projects/vsk-ui-kit/*/src/public-api.ts"
+      ],
+      "@vsk/ui-kit/tokens/styles/*": [
+        "./projects/vsk-ui-kit/tokens/src/styles/*"
       ],
       "vsk-ui-kit": [
-        "./dist/vsk-ui-kit"
+        "./projects/vsk-ui-kit/src/public-api.ts"
       ]
     }
   },
