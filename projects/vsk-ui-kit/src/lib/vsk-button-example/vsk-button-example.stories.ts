@@ -7,7 +7,7 @@ import { VskButtonExampleComponent } from './vsk-button-example.component';
 const meta: Meta<VskButtonExampleComponent> = {
   title: 'Atoms/Vsk Button Example',
   component: VskButtonExampleComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs','experimental'],
   decorators: [
     applicationConfig({
       providers: [],

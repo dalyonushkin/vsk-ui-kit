@@ -28,7 +28,7 @@
   ],
   "module": "dist/vsk-ui-kit/fesm2022/vsk-ui-kit.mjs",
   "typings": "dist/vsk-ui-kit/index.d.ts",
-    "exports": {
+  "exports": {
     ".": {
       "types": "./dist/vsk-ui-kit/index.d.ts",
       "default": "./dist/vsk-ui-kit/fesm2022/vsk-ui-kit.mjs"
@@ -116,16 +116,13 @@
     "@taiga-ui/kit": "4.16.0",
     "@taiga-ui/layout": "4.16.0",
     "@taiga-ui/legacy": "4.16.0",
-    "@taiga-ui/styles": "4.16.0",
     "@taiga-ui/polymorpheus": "4.9.0",
+    "@taiga-ui/styles": "4.16.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "chokidar": "^4.0.3",
-    "concurrently": "^9.0.1",
-    "less": "^4.2.0",
     "@angular-devkit/build-angular": "^20.3.9",
     "@angular/build": "^20.3.9",
     "@angular/cli": "^20.3.9",
@@ -138,6 +135,8 @@
     "@storybook/angular": "^10.0.6",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "20.5.1",
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.0.1",
     "eslint": "^9.38.0",
     "eslint-plugin-storybook": "^10.0.6",
     "jasmine-core": "~5.9.0",
@@ -146,9 +145,11 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "less": "^4.2.0",
     "ng-packagr": "^20.3.0",
     "puppeteer": "^24.29.1",
     "storybook": "^10.0.6",
+    "storybook-addon-tag-badges": "^3.0.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.2"
   }

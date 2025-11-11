@@ -9,8 +9,6 @@ interface TaigaButtonStoryArgs {
   label: string;
   appearance: TaigaAppearance;
   size: TaigaSize;
-  iconLeft?: string;
-  iconRight?: string;
   disabled: boolean;
   type: 'button' | 'submit' | 'reset';
 }
@@ -21,7 +19,6 @@ const TAIGA_SNIPPET = `\
   type="button"
   appearance="primary"
   size="m"
-  iconLeft="tuiIconCalendar"
 >
   Скачать выписку
 </button>
@@ -30,7 +27,7 @@ const TAIGA_SNIPPET = `\
 const meta: Meta<TaigaButtonStoryArgs> = {
   title: 'Taiga UI/Button',
  // component: TuiButton,
-  tags: ['autodocs'],
+  tags: ['autodocs','alpha'],
   parameters: {
     status: 'Ready',
     docs: {
@@ -59,16 +56,6 @@ const meta: Meta<TaigaButtonStoryArgs> = {
       description: 'Высота кнопки',
       name: 'size'
     },
-    iconLeft: {
-      control: 'text',
-      description: 'Левая иконка (поддерживает имя из `@taiga-ui/icons` или текст)',
-      name: 'iconLeft'
-    },
-    iconRight: {
-      control: 'text',
-      description: 'Правая иконка',
-      name: 'iconRight'
-    },
     disabled: {
       control: 'boolean',
       description: 'Отключает кнопку',
@@ -91,8 +78,6 @@ export const TaigaButtonStory: Story = {
     label: 'Скачать выписку',
     appearance: 'primary',
     size: 'm',
-    iconLeft: 'tuiIconDownload',
-    iconRight: '',
     disabled: false,
     type: 'button'
   },
