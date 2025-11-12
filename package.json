@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run build:lib",
     "build:lib": "ng build vsk-ui-kit --configuration production && node tools/copy-token-styles.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test-storybook:ci",
@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "postinstall": "puppeteer browsers install chrome",
-    "build-storybook": "npm run build:lib && ng run vsk-ui-kit:build-storybook",
+    "build-storybook": "npm run build:lib && ng run vsk-ui-kit:build-storybook && npm run extract-storybook-llms",
     "tokens:watch": "node tools/watch-token-styles.mjs",
     "storybook:serve": "ng run vsk-ui-kit:storybook --no-open",
     "storybook": "concurrently -k \"npm:tokens:watch\" \"npm:storybook:serve\"",
@@ -22,7 +22,8 @@
     "test-storybook:lcov": "nyc report --reporter=lcov -t coverage/storybook --report-dir coverage/storybook",
     "pretest-storybook:ci": "npx playwright install chromium && npm run build-storybook",
     "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6006 --silent\"  \"npx wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
-    "posttest-storybook:ci": "npm run test-storybook:lcov"
+    "posttest-storybook:ci": "npm run test-storybook:lcov",
+    "extract-storybook-llms": "storybook-llms-extractor --config ./projects/vsk-ui-kit/.storybook/llms-extractor.config.js"
   },
   "publishConfig": {
     "registry": "http://localhost:4873/"
@@ -133,6 +134,7 @@
     "@angular/cli": "^20.3.9",
     "@angular/compiler-cli": "^20.3.0",
     "@compodoc/compodoc": "^1.1.32",
+    "@fluentui/storybook-llms-extractor": "^0.0.3",
     "@storybook/addon-a11y": "^10.0.6",
     "@storybook/addon-coverage": "^3.0.0",
     "@storybook/addon-designs": "^11.0.1",
