@@ -45,3 +45,5 @@ Thumbs.db
 *storybook.log
 storybook-static
 .npmrc
+
+llm_current_task_context/*
