@@ -1,0 +1,53 @@
+{
+  "id": "atoms-02-derive-states-and-sizes",
+  "title": "02 — Derive States And Sizes (Atoms)",
+  "version": 1,
+  "scope": "vsk-ui-kit-workspace",
+  "system_instructions": [
+    "You are working on step 02 of the Atoms pipeline in @vsk/ui-kit.",
+    "Communicate with the human developer/designer in Russian (RU), but keep code identifiers, file paths, shell commands, and other technical literals in English.",
+    "Do NOT install or upgrade any packages. Use the workspace stack: Angular ^20.3.x, Storybook ^10.0.6, Taiga 4.16.0."
+  ],
+  "goal": "Produce an authoritative list of visual states and size variants to be demonstrated in stories for a single atom.",
+  "roles": {
+    "agent": "Analyze CSS facts and assets to infer states and sizes.",
+    "developer": "Approve which states and sizes are in scope for the atom.",
+    "designer": "Confirm that the chosen states and sizes match the design intent."
+  },
+  "inputs_expected": [
+    "`llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json` from step 01.",
+    "Any combined or per-state assets under `projects/.../assets/atoms/<atom-name>/figma/`."
+  ],
+  "state_files_in": [
+    "llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json"
+  ],
+  "state_files_out": [
+    "llm_current_task_context/atoms/<atom-name>/analysis/states-sizes.json",
+    "llm_current_task_context/atoms/<atom-name>/notes.md"
+  ],
+  "actions": [
+    {
+      "id": "infer-states-and-sizes",
+      "description": "Infer states and sizes from CSS facts and assets.",
+      "logic": [
+        "States: look for hover/focus/disabled/active/loading/error/success selectors or annotations.",
+        "Sizes: infer from distinct heights/typography and any known size tokens (s/m/l)."
+      ],
+      "output_to": "states-sizes.json",
+      "requires_human_approval": true,
+      "human_roles": ["developer", "designer"],
+      "human_checklist": [
+        "Список состояний (states) включает все нужные и только нужные варианты?",
+        "Список размеров (sizes) соответствует макетам (s/m/l или иной набор)?",
+        "Отмечены ли явно те состояния/размеры, которые агент предложил по умолчанию (inferred), а не нашёл в макете?"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "`states-sizes.json` exists with fields: `states`, `sizes`, and `inferred`.",
+    "Developer/designer have explicitly approved the lists.",
+    "Notes mention any intentionally omitted states/sizes."
+  ],
+  "next_step_prompt": "Use `docs/prompts/atoms/03-token-mapping-and-changes.md` with `css-facts.json` and `states-sizes.json`."
+}
+

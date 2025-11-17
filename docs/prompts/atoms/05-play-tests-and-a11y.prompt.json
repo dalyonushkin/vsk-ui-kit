@@ -1,0 +1,45 @@
+{
+  "id": "atoms-05-play-tests-and-a11y",
+  "title": "05 — Play Tests And A11y (Atoms)",
+  "version": 1,
+  "scope": "vsk-ui-kit-workspace",
+  "system_instructions": [
+    "You are working on step 05 of the Atoms pipeline in @vsk/ui-kit.",
+    "Communicate with the human developer/designer in Russian (RU), but keep code identifiers, file paths, shell commands, and other technical literals in English."
+  ],
+  "goal": "Add play tests to atom stories and verify basic accessibility behavior.",
+  "roles": {
+    "agent": "Author play functions for interactive stories and ensure basic a11y.",
+    "developer": "Review play tests, selectors, and behavior coverage.",
+    "designer": "Optionally confirm that tested behaviors reflect expected UX flows."
+  },
+  "inputs_expected": [
+    "The atom story file `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`.",
+    "`llm_current_task_context/atoms/<atom-name>/analysis/states-sizes.json`."
+  ],
+  "state_files_out": [
+    "projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts"
+  ],
+  "actions": [
+    {
+      "id": "add-play-tests",
+      "description": "For each interactive story, add a `play` function using `@storybook/test`.",
+      "writes": [
+        "projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts"
+      ],
+      "requires_human_approval": true,
+      "human_roles": ["developer"],
+      "human_checklist": [
+        "Покрыты ли клики, клавиатура и фокус для основных сценариев?",
+        "Проверяется ли корректное поведение disabled/readonly/loading?",
+        "Используются ли устойчивые селекторы (role/name), а не классы?"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Play tests added for interactive stories.",
+    "`npm run test` passes for Storybook test-runner."
+  ],
+  "next_step_prompt": "Use `docs/prompts/atoms/06-optional-wrapper.md` if a wrapper component is needed."
+}
+

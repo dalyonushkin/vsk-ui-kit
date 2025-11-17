@@ -1,0 +1,66 @@
+{
+  "id": "atoms-03-token-mapping-and-changes",
+  "title": "03 — Token Mapping And Changes (Atoms)",
+  "version": 1,
+  "scope": "vsk-ui-kit-workspace",
+  "system_instructions": [
+    "You are working on step 03 of the Atoms pipeline in @vsk/ui-kit.",
+    "Communicate with the human developer/designer in Russian (RU), but keep code identifiers, file paths, shell commands, and other technical literals in English.",
+    "Do NOT install or upgrade any packages. Use workspace tokens instead of local, hard-coded values."
+  ],
+  "goal": "Map raw CSS facts to existing tokens/variables and propose minimal centralized token changes, avoiding local overrides.",
+  "roles": {
+    "agent": "Build mapping from raw CSS to design tokens and propose centralized changes.",
+    "developer": "Review and approve or adjust proposed token mappings and changes.",
+    "designer": "Confirm that updated tokens match the design system."
+  },
+  "inputs_expected": [
+    "`llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json`.",
+    "Token sources under `projects/vsk-ui-kit/tokens/src/styles/*`."
+  ],
+  "state_files_in": [
+    "llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json"
+  ],
+  "state_files_out": [
+    "llm_current_task_context/atoms/<atom-name>/analysis/token-mapping.md",
+    "llm_current_task_context/atoms/<atom-name>/analysis/token-changes.plan.md",
+    "llm_current_task_context/atoms/<atom-name>/notes.md"
+  ],
+  "actions": [
+    {
+      "id": "build-token-mapping",
+      "description": "For each significant CSS fact, map it to an existing token/variable if possible.",
+      "writes": [
+        "llm_current_task_context/atoms/<atom-name>/analysis/token-mapping.md"
+      ],
+      "requires_human_approval": true,
+      "human_roles": ["developer", "designer"],
+      "human_checklist": [
+        "Все ключевые значения из css-facts получили маппинг на существующие токены/переменные или отмечены как 'нет токена'?",
+        "Нет ли лишних/избыточных токенов в маппинге?",
+        "Ясны ли названия токенов для команды (без двусмысленностей)?"
+      ]
+    },
+    {
+      "id": "propose-token-changes",
+      "description": "Where no suitable token exists, propose centralized token changes in shared files.",
+      "writes": [
+        "llm_current_task_context/atoms/<atom-name>/analysis/token-changes.plan.md"
+      ],
+      "requires_human_approval": true,
+      "human_roles": ["developer", "designer"],
+      "human_checklist": [
+        "Предложенные изменения действительно требуют новых/обновлённых токенов, а не локального хака?",
+        "Изменения не ломают совместимость с уже использующимися компонентами?",
+        "План изменений удобно реализовать в `projects/vsk-ui-kit/tokens/src/styles/*`?"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "token-mapping.md documents raw CSS → token/variable mapping.",
+    "token-changes.plan.md describes centralized changes only, with no local story overrides.",
+    "Developer/designer have reviewed and approved both documents."
+  ],
+  "next_step_prompt": "Use `docs/prompts/atoms/04-generate-story.md` after agreeing on token mapping/changes."
+}
+

@@ -1,0 +1,85 @@
+{
+  "id": "atoms-01-extract-figma-artifacts",
+  "title": "01 — Extract Figma Artifacts (Atoms)",
+  "version": 1,
+  "scope": "vsk-ui-kit-workspace",
+  "system_instructions": [
+    "You are working on step 01 of the Atoms pipeline in @vsk/ui-kit.",
+    "Communicate with the human developer/designer in Russian (RU), but keep code identifiers, file paths, shell commands, and other technical literals in English to reduce token usage.",
+    "Do NOT install or upgrade any packages. Use the workspace stack: Angular ^20.3.x, Storybook ^10.0.6, Taiga 4.16.0.",
+    "One atom = one folder under `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/`.",
+    "Design inputs come from Figma 'Copy as SVG' and 'Copy as code CSS (all layers)'.",
+    "Raw CSS must stay in `llm_current_task_context`, never committed to story assets."
+  ],
+  "goal": "From Figma SVG and CSS copied via 'Copy as SVG' and 'Copy as code CSS (all layers)', extract reusable assets and structured CSS facts for a single atom.",
+  "roles": {
+    "agent": "Extract and structure design information for the atom from raw SVG/CSS.",
+    "developer": "Approve extracted assets and CSS facts; confirm that nothing important is missing.",
+    "designer": "Optionally verify that extracted assets and facts match the intended design."
+  },
+  "inputs_expected": [
+    "`llm_current_task_context/atoms/<atom-name>/context.json` produced by step 00.",
+    "Raw Figma outputs placed under `llm_current_task_context/atoms/<atom-name>/raw/` (SVG/PNG/JPG/PDF) and `llm_current_task_context/atoms/<atom-name>/css/figma.css`."
+  ],
+  "state_files_in": [
+    "llm_current_task_context/atoms/<atom-name>/context.json",
+    "llm_current_task_context/atoms/<atom-name>/raw/**",
+    "llm_current_task_context/atoms/<atom-name>/css/figma.css"
+  ],
+  "state_files_out": [
+    "projects/vsk-ui-kit/src/stories/assets/atoms/<atom-name>/figma/**",
+    "llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json",
+    "llm_current_task_context/atoms/<atom-name>/analysis/assets-extracted.json",
+    "llm_current_task_context/atoms/<atom-name>/notes.md"
+  ],
+  "actions": [
+    {
+      "id": "detect-combined-artifact",
+      "description": "Detect if there is a combined artifact showing all states (e.g. `combined.svg|png|pdf`) in `raw/` and mark it as the primary design reference.",
+      "requires_human_approval": false
+    },
+    {
+      "id": "extract-embedded-assets",
+      "description": "From SVG and CSS, extract only necessary embedded images (data URIs) into story assets.",
+      "commands_suggested": [
+        "grep -n \"data:image\" llm_current_task_context/atoms/<atom-name>/raw/*.svg || true",
+        "rg -n \"url\\(\" llm_current_task_context/atoms/<atom-name>/css/figma.css || true"
+      ],
+      "writes": [
+        "projects/vsk-ui-kit/src/stories/assets/atoms/<atom-name>/figma/**",
+        "llm_current_task_context/atoms/<atom-name>/analysis/assets-extracted.json",
+        "llm_current_task_context/atoms/<atom-name>/notes.md"
+      ],
+      "requires_human_approval": true,
+      "human_roles": ["developer", "designer"],
+      "human_checklist": [
+        "Список извлечённых ассетов (png/jpg/svg/pdf) выглядит полным?",
+        "Нет ли лишних или дублирующих ассетов, которые лучше не добавлять?",
+        "Указаны понятные имена файлов, которые будут видны в Storybook Design вкладке?"
+      ]
+    },
+    {
+      "id": "extract-css-facts",
+      "description": "Parse `figma.css` and build a compact facts file with colors, typography, radii, borders, shadows, heights, spacings, grouped by state/size.",
+      "writes": [
+        "llm_current_task_context/atoms/<atom-name>/analysis/css-facts.json",
+        "llm_current_task_context/atoms/<atom-name>/notes.md"
+      ],
+      "requires_human_approval": true,
+      "human_roles": ["developer", "designer"],
+      "human_checklist": [
+        "Отражены ли ключевые свойства (цвета, размеры шрифта, line-height, радиусы, бордеры, тени, отступы, высоты)?",
+        "Разделены ли факты по состояниям (default/hover/focus/disabled/active/loading) и размерам (s/m/l), если они различаются?",
+        "Нет ли ненужного шума из Figma (лишние служебные правила, неиспользуемые классы)?"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Minimal, referenced assets for the atom are present under `projects/.../assets/atoms/<atom-name>/figma/`.",
+    "Raw CSS remains only under `llm_current_task_context/atoms/<atom-name>/css/figma.css` and is not copied into story assets.",
+    "`css-facts.json` exists and has grouped property/value facts by state/size.",
+    "`assets-extracted.json` and notes clearly list what was extracted and where it lives."
+  ],
+  "next_step_prompt": "Use `docs/prompts/atoms/02-derive-states-and-sizes.md` with `css-facts.json` and figma assets as inputs."
+}
+

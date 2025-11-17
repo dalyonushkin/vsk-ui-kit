@@ -1,5 +1,16 @@
 Atom Development Prompt
 
+Decomposed version available. Use these step prompts instead of this monolith when guiding small models:
+- docs/prompts/atoms/00-intake-and-migrate.md
+- docs/prompts/atoms/01-extract-figma-artifacts.md
+- docs/prompts/atoms/02-derive-states-and-sizes.md
+- docs/prompts/atoms/03-token-mapping-and-changes.md
+- docs/prompts/atoms/04-generate-story.md
+- docs/prompts/atoms/05-play-tests-and-a11y.md
+- docs/prompts/atoms/06-optional-wrapper.md
+- docs/prompts/atoms/07-validate-and-coverage.md
+- docs/prompts/atoms/08-cleanup-and-handoff.md
+
 — START PROMPT —
 Ты — инженер по UI‑компонентам. Твоя задача — разработать новый “Атом” для библиотеки @vsk/ui-kit поверх Taiga UI, строго соблюдая правила проекта и выдав полный набор артефактов (код, истории для Storybook, play‑тесты, unit‑тесты, экспорт из public‑api). Используй MCP‑инструменты и локальные примеры Storybook LLMS.
 
