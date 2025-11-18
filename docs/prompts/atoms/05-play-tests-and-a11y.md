@@ -1,23 +1,30 @@
 05 — Play Tests And A11y (Atoms)
 
 Goal
-- Add robust play tests to the stories and ensure baseline accessibility.
+- Add play tests to the stories and verify basic accessibility behavior.
 
 Inputs
-- The atom story file from step 04.
-- `analysis/states-sizes.json` for which states/sizes to exercise.
+- Atom story file from step 04: `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`.
+- `llm_current_task_context/atoms/<atom-name>/analysis/states-sizes.json` — which states/sizes to exercise.
 
 Actions
-1) For each interactive story, write `play` using `@storybook/test` (`userEvent`, `within`, `expect`).
-2) Cover: click/keyboard/focus flow, disabled behavior, aria roles/labels.
-3) Prefer role/text selectors; avoid class‑based selectors.
+1) Add play functions  
+   - For each interactive story, add a `play` function using `@storybook/test` (`userEvent`, `within`, `expect`).
 
-Write Outputs
-- Tests embedded in the story file(s).
+2) Cover behavior and a11y  
+   - Click, keyboard, and focus flow.  
+   - `disabled/readonly/loading` behavior.  
+   - ARIA roles and labels (`role`, `aria-label`, `aria-pressed`, etc.).
+
+3) Selectors  
+   - Prefer role/text selectors (`getByRole`, `getByText`); avoid class‑based selectors.
+
+Write Outputs (contracts)
+- Updated `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`  
+  - Stories contain `play` functions for relevant scenarios.
 
 Acceptance
-- `npm run test` passes locally (storybook test‑runner), basic a11y behaviors verified.
+- `npm run test` passes (storybook test‑runner), and basic behavior and accessibility are verified.
 
 Next Step
 - 06 — Optional Wrapper
-
