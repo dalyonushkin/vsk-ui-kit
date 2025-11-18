@@ -15,6 +15,7 @@ Actions
 
 2) Cleanup temp folder  
    - Clean `llm_current_task_context/atoms/<atom-name>/` from temporary files, leaving only agreed artifacts (for example, `context.json`, `validation-report.md`) if needed.  
+   - Ensure there are no open items (pending tokens, design approvals, missing assets). If any work remains, keep the relevant files/notes in place and explain why `DONE` is not set yet.  
    - Explicitly mark the atom’s temp context as completed.
 
 Write Outputs (contracts)

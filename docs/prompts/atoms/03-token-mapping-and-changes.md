@@ -20,6 +20,9 @@ Actions
 3) Prepare patch plan (only plan)  
    - Prepare a change plan: which token files to edit and which lines/properties to change or add.  
    - Do not apply changes without review; the plan is for developer/designer approval.
+4) Handoff to stories  
+   - In `notes.md`, clearly state which values are already covered by existing tokens and which still require updates before step 04.  
+   - If a token is missing, document the acceptable temporary fallback (for example, “keep the default appearance until approval”) and call out that the story must not introduce new magic numbers.
 
 Write Outputs (contracts)
 - `llm_current_task_context/atoms/<atom-name>/analysis/token-mapping.md`  

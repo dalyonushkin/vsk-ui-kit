@@ -8,6 +8,7 @@ When needed
 - Enforce defaults that are hard/impossible to enforce from stories alone.
 - Encapsulate logic not related to pure rendering (but avoid heavy business logic).
 - Apply tokens that cannot be cleanly attached externally.
+- Before introducing a wrapper, document in `notes.md` which condition is being met (for example, “base `tuiButton` lacks dual icons” or “custom typeface must be enforced”). If the combination of stories + tokens is enough, do not create a wrapper.
 
 Actions
 1) Implement wrapper (опционально)  

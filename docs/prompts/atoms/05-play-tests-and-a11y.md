@@ -9,7 +9,7 @@ Inputs
 
 Actions
 1) Add play functions  
-   - For each interactive story, add a `play` function using `@storybook/test` (`userEvent`, `within`, `expect`).
+   - For each interactive story, add a `play` function using `storybook/test` (`userEvent`, `within`, `expect`).
 
 2) Cover behavior and a11y  
    - Click, keyboard, and focus flow.  

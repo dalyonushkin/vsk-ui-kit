@@ -64,7 +64,7 @@ Organism Development Prompt
 - Если есть иконки/изображения — укажи, где ожидаются SVG/PNG ассеты и как их подключать.
 
 5) Play‑тесты (в историях)
-- Используй `@storybook/test` (`userEvent`, `within`, `expect`).
+- Используй `storybook/test` (`userEvent`, `within`, `expect`).
 - Проверь:
   - взаимодействия (клики, клавиатура, фокус);
   - работу disabled/readonly/загрузка;

@@ -27,7 +27,8 @@ Actions
 5) Stories (сценарии)  
    - At minimum: `Playground`, `States`, `Sizes`, `Edge cases`.  
    - Use `states-sizes.json` to decide which states/sizes to show.  
-   - `args`/`argTypes` must match the public Taiga API (appearance, size, disabled, etc.).
+   - `args`/`argTypes` must match the public Taiga API (appearance, size, disabled, etc.).  
+   - For pseudo states (`hover`, `focus`, `pressed`), never fake CSS in the story. Showcase them via real prop combinations and `play` functions (see step 05). In the static `States` block display only states that can be configured through the API (rest/disabled/loading, etc.) and explicitly mention that the remaining ones are covered by interactive tests.
 
 Write Outputs (contracts)
 - `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`  

@@ -51,7 +51,7 @@ Decomposed version available. Use these step prompts instead of this monolith wh
    - Если папки нет — создай: `mkdir -p llm_current_task_context/atoms/<atom-name>/{raw,css,extracts}`.
    - Если `<atom-name>` (англ. slug) не согласован — предложи свой вариант и вынеси на подтверждение. Русское человекочитаемое имя укажи отдельно для описаний.
    - После сканирования перечисли, что уже есть, чего не хватает, какой Taiga‑компонент предлагаешь использовать, и какой стандартный набор состояний предлагаешь показать.
-   - Сверься с текущими паттернами в кодовой базе: возьми за образец существующие истории (`projects/vsk-ui-kit/src/stories/*.stories.ts`, `projects/vsk-ui-kit/src/lib/taiga-stories/*`) и используй тот же стиль (CSF, `Meta`, `StoryObj`, `render`, `@storybook/test`).
+   - Сверься с текущими паттернами в кодовой базе: возьми за образец существующие истории (`projects/vsk-ui-kit/src/stories/*.stories.ts`, `projects/vsk-ui-kit/src/lib/taiga-stories/*`) и используй тот же стиль (CSF, `Meta`, `StoryObj`, `render`, `storybook/test`).
    - Проверь версии в корневом `package.json` и не предлагай действия, требующие установки/обновления пакетов.
    - Если чего‑то не хватает — запроси ТОЛЬКО недостающее:
    - Название компонента/атома.
@@ -122,7 +122,7 @@ Decomposed version available. Use these step prompts instead of this monolith wh
        - `README.md` — опционально: заметки по выверке стилей/токенов.
      • Сырой CSS держи только во временной папке: `llm_current_task_context/atoms/<atom-name>/css/figma.css`.
    - Play‑тесты в историях:
-     • Используй `@storybook/test` (`userEvent`, `within`, `expect`).
+     • Используй `storybook/test` (`userEvent`, `within`, `expect`).
      • Проверь клики/клавиатуру/фокус, aria/roles, корректность disabled/loading.
    - Проверка: `npm run test` (запустит Storybook test‑runner).
 
