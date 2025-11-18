@@ -23,13 +23,24 @@ Actions
 4) parameters.design (Design вкладка)  
    - Add Figma link(s) if available.  
    - Add images: prefer `combined.<ext>` from `figma/` as the primary reference; if absent, use a minimal set of extracted files.  
-   - Do not invent assets — only use provided ones.
+   - Do not invent assets — only use provided ones.  
+   - When using `storybook-addon-designs` with `type: 'image'`, set `scale` (≈0.2–0.4 for large artboards) and `offset` (`[x, y]`) so that the reference fits inside the preview without manual zooming. Example:  
+     ```ts
+     design: {
+       type: 'image',
+       url: 'assets/atoms/button/figma/combined.svg',
+       scale: 0.3,
+       offset: [-300, 140],
+     },
+     ```
+     This keeps the actual component area centered when the artifact contains extra whitespace or multiple sections.
 
 5) Stories (сценарии)  
    - At minimum: `Playground`, `States`, `Sizes`, `Edge cases`.  
    - Use `states-sizes.json` to decide which states/sizes to show.  
    - `args`/`argTypes` must match the public Taiga API (appearance, size, disabled, etc.).  
-   - For pseudo states (`hover`, `focus`, `pressed`), never fake CSS in the story. Showcase them via real prop combinations and `play` functions (see step 05). In the static `States` block display only states that can be configured through the API (rest/disabled/loading, etc.) and explicitly mention that the remaining ones are covered by interactive tests.
+   - For pseudo states (`hover`, `focus`, `pressed`), never fake CSS in the story. Showcase them via real prop combinations and `play` functions (see step 05). In the static `States` block display only states that can be configured through the API (rest/disabled/loading, etc.) and explicitly mention that the remaining ones are covered by interactive tests.  
+   - When the number of states/sizes is large, create additional CSF files (for example `button.states.stories.ts`, `button.sizes.stories.ts`) with titles like `Atoms/<atom-name>/States`. Give them their own `tags: ['autodocs']` and link to them from the main story description.
 
 Write Outputs (contracts)
 - `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`  

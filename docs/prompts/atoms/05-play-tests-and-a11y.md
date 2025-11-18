@@ -14,7 +14,8 @@ Actions
 2) Cover behavior and a11y  
    - Click, keyboard, and focus flow.  
    - `disabled/readonly/loading` behavior.  
-   - ARIA roles and labels (`role`, `aria-label`, `aria-pressed`, etc.).
+   - ARIA roles, descriptions, and labels (`role`, `aria-label`, `aria-describedby`, `aria-pressed`, etc.).  
+   - When you rely on hidden hints via `aria-describedby`, assert them with `expect(element).toHaveAccessibleDescription(...)` so the accessible text stays in sync.
 
 3) Selectors  
    - Prefer role/text selectors (`getByRole`, `getByText`); avoid class‑based selectors.

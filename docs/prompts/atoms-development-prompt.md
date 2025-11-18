@@ -117,14 +117,16 @@ Decomposed version available. Use these step prompts instead of this monolith wh
      • Сопоставь CSS из Figma с токенами/переменными. Прямые жёсткие значения — только если нет токена.
      • Если нужны SVG‑иконки — подключай их как отдельные ассеты.
    - Подпапки для референсов (изображения):
-     • База: `projects/vsk-ui-kit/src/stories/assets/atoms/<atom-name>/`
-       - `figma/` — все экспортированные из Figma референсы (`default.png|jpg|svg|pdf`, `hover.png`, `active.png`, `focus.png`, `disabled.png`, или единый `combined.png|svg` со всеми состояниями).
-       - `README.md` — опционально: заметки по выверке стилей/токенов.
-     • Сырой CSS держи только во временной папке: `llm_current_task_context/atoms/<atom-name>/css/figma.css`.
-   - Play‑тесты в историях:
-     • Используй `storybook/test` (`userEvent`, `within`, `expect`).
-     • Проверь клики/клавиатуру/фокус, aria/roles, корректность disabled/loading.
-   - Проверка: `npm run test` (запустит Storybook test‑runner).
+     • Base folder: `projects/vsk-ui-kit/src/stories/assets/atoms/<atom-name>/`
+       - `figma/` — every exported Figma reference (`default.png|jpg|svg|pdf`, `hover.png`, `active.png`, `focus.png`, `disabled.png`, or a single `combined.png|svg` with all states).
+       - `README.md` — optional notes about style/token calibration.
+     • Keep raw CSS only under the temp folder: `llm_current_task_context/atoms/<atom-name>/css/figma.css`.
+  - Story play tests:
+    • Use `storybook/test` (`userEvent`, `within`, `expect`).
+    • Cover clicks/keyboard/focus, aria/roles, correct disabled/loading behavior.
+    • When you rely on `aria-describedby` (hidden hints), place the text next to the component via `visually-hidden` elements and assert it with `toHaveAccessibleDescription` so screen-reader scenarios stay reproducible.
+    • For large state/size matrices, split CSF files (e.g., `<atom>.states.stories.ts`) so Autodocs stay clean; set `tags: ['autodocs']` there and reference them from the main story.
+   - Validation: `npm run test` (runs the Storybook test runner).
 
 3) Ветка B — с обёрткой (только при необходимости)
    - Файлы:
