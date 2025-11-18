@@ -17,7 +17,10 @@ const config: StorybookConfig = {
     "name": "@storybook/angular",
     "options": {}
   },
-  staticDirs: ['../tokens/src/styles'],
+  staticDirs: [
+    '../tokens/src/styles',
+    { from: '../src/stories/assets', to: '/assets' },
+  ],
 };
 
 export default config;
