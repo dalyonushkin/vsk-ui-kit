@@ -3094,6 +3094,17 @@ tui-chip[aria-pressed='true'],
   padding: var(--vsk-button-padding-md);
   transition: background-color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
 }
+.vsk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
 .vsk-button--lg {
   font-size: 1.0625rem;
   min-height: 2.875rem;

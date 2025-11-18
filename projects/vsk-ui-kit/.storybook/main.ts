@@ -11,7 +11,8 @@ const config: StorybookConfig = {
     "@storybook/addon-designs",
     "@storybook/addon-a11y",
     'storybook-addon-tag-badges',
-    "@storybook/addon-coverage"
+    "@storybook/addon-coverage",
+    '@storybook/addon-links'
   ],
   "framework": {
     "name": "@storybook/angular",

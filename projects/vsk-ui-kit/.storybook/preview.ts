@@ -44,6 +44,18 @@ const preview: Preview = {
     docs: {
       codePanel: true,
     },
+    options: {
+      storySort: {
+        order: [
+          'Atoms',
+          [
+            'Кнопка — tuiButton',
+            ['Playground', 'EdgeCases', 'Состояния', 'Размеры'],
+          ],
+          'Taiga UI',
+        ],
+      },
+    },
   },
   initialGlobals: {
     viewport: { value: 'ipad', isRotated: false },
