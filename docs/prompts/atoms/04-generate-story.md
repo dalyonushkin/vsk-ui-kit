@@ -10,7 +10,8 @@ Inputs
 
 Actions
 1) Story file path  
-   - Use path: `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`.
+   - Use path: `projects/vsk-ui-kit/src/lib/atoms/<atom-name>/<atom-name>.stories.ts`.  
+   - Set a stable ASCII `id` in the CSF meta (for example, `'atoms-<atom-name>'`) so Angular Autodocs do not generate invalid selectors like `--story-name-inner-0`.
 
 2) CSF + Taiga re‑export  
    - Use CSF (`Meta`, `StoryObj`, `render`).  
