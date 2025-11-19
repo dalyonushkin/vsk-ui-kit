@@ -10,6 +10,22 @@ import parserPostcss from 'prettier/parser-postcss'; // Для CSS
 setCompodocJson(docJson);
 
 const preview: Preview = {
+  // 1. Настраиваем кнопку в тулбаре
+  globalTypes: {
+    theme: {
+      description: 'Глобальная тема приложения',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Тема',
+        icon: 'mirror', // Иконка в меню (mirror, circlehollow, etc)
+        items: [
+          { value: 'light', icon: 'circlehollow', title: 'Light' },
+          { value: 'dark', icon: 'circle', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   parameters: {
     tags: ['autodocs'],
     a11y: {
@@ -89,6 +105,9 @@ const preview: Preview = {
         },
       },
     },
+    backgrounds: {
+      disable: true, // Отключаем стандартный выбор цвета фона, чтобы он зависел от темы
+    },
     options: {
       storySort: {
         order: [
@@ -105,6 +124,20 @@ const preview: Preview = {
   initialGlobals: {
     viewport: { value: 'ipad', isRotated: false },
   },
+  // 2. Декоратор, который применяет тему
+  decorators: [
+    (story, context:any) => {
+      // Получаем текущее значение из тулбара (по умолчанию 'light')
+      const theme = context.globals.theme || 'light';
+
+      // ВАША ЛОГИКА: Устанавливаем атрибут на body
+      // Storybook запускает это внутри iframe, поэтому document.body безопасен
+      document.body.setAttribute('data-tui-theme', theme);
+
+
+      return story();
+    },
+  ],
 };
 
 export default preview;

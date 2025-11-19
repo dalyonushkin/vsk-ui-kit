@@ -2,111 +2,289 @@
 @import '@taiga-ui/core/styles/taiga-ui-theme.less';
 @import '@taiga-ui/addon-mobile/styles/taiga-ui-mobile.less';
 
-@layer vsk-ui-kit.tokens {
-  :root {
-    color-scheme: light;
-    --vsk-color-primary: #0044cc;
-    --vsk-color-primary-hover: #0036a5;
-    --vsk-color-accent: #12b1c4;
-    --vsk-color-surface: #f4f6fb;
-    --vsk-color-border: #dde1f0;
-    --vsk-radius-pill: 999px;
-    --vsk-shadow-focus: 0 0 0 3px rgba(16, 69, 174, 0.35);
 
-    --tui-primary: var(--vsk-color-primary);
-    --tui-primary-hover: var(--vsk-color-primary-hover);
-    --tui-primary-active: #002266;
-    --tui-link: var(--vsk-color-accent);
-    --tui-base-01: #ffffff;
-    --tui-base-02: var(--vsk-color-surface);
-    --tui-base-03: #e7eaf5;
-    --tui-base-04: #c4c8da;
-    --tui-base-06: #4c5370;
-    --tui-radius-m: 14px;
-    --tui-radius-l: 20px;
-    --tui-radius-xl: 32px;
-  }
+// ============================================================================
+// 1. PRIMITIVES (ПРИМИТИВЫ)
+// Здесь определены ВСЕ значения. В коде ниже используем только имена переменных.
+// ============================================================================
 
-  body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--vsk-color-surface);
-    color: #0f172a;
-  }
+// ----------------------------------------------------------------------------
+// 1.1. Color Palette (Палитра)
+// ----------------------------------------------------------------------------
 
-  .tui-button,
-  button {
-    border-radius: var(--vsk-radius-pill);
-  }
+// Brand Colors
+@vsk-color-primary:        #0577FE;
+@vsk-color-primary-hover:  #0069E2;
+@vsk-color-primary-active: #0B5BC0;
+@vsk-color-primary-light:  #ECF7FF; // Used for backgrounds/selection
 
-  :focus-visible {
-    outline: none;
-    box-shadow: var(--vsk-shadow-focus);
-  }
+// Semantic Colors
+@vsk-color-error:          #FA0800;
+@vsk-color-warning:        #F79E1B;
+@vsk-color-success:        #26A642;
+@vsk-color-info:           #007BFF;
+
+// Neutral & Grayscale (Light Theme Defaults)
+@vsk-color-white:          #FFFFFF;
+@vsk-color-black:          #161618; // Main text
+@vsk-color-gray-50:        #F7F7F8; // Page bg
+@vsk-color-gray-100:       #EFEFF1; // Disabled/Dividers
+@vsk-color-gray-300:       #D0D0D0; // Borders
+@vsk-color-gray-500:       #91959C; // Secondary text/Icons
+@vsk-color-gray-800:       #333333; // Dark gray
+@vsk-color-gray-900:       #151515; // Deep dark
+
+// Technical Blacks & Whites (Absolute values)
+@vsk-static-black:         #000000;
+@vsk-static-white:         #FFFFFF;
+@vsk-overlay-black:        rgba(0, 0, 0, 0.8);
+@vsk-overlay-white:        rgba(255, 255, 255, 0.9);
+
+// ----------------------------------------------------------------------------
+// 1.2. Dark Mode Specifics (Палитра темной темы)
+// ----------------------------------------------------------------------------
+@vsk-dark-bg-page:         #121212;
+@vsk-dark-bg-surface:      #1E1E1E;
+@vsk-dark-bg-hover:        #2C2C2C;
+@vsk-dark-border:          #333335;
+@vsk-dark-text-main:       #FFFFFF;
+@vsk-dark-text-sec:        #A0A0A0;
+
+// ----------------------------------------------------------------------------
+// 1.3. Legacy/Chart Locks (Фиксация стандартных цветов библиотеки)
+// ----------------------------------------------------------------------------
+@vsk-chart-purple:         #AB47BC;
+@vsk-chart-cyan:           #26C6DA;
+@vsk-chart-pink:           #EC407A;
+
+// ----------------------------------------------------------------------------
+// 1.4. Dimensions: Fonts (Размеры шрифтов)
+// ----------------------------------------------------------------------------
+@vsk-font-family-head:     'Raleway', sans-serif;
+@vsk-font-family-text:     'Open Sans', sans-serif;
+
+@vsk-size-font-xs:         11px;
+@vsk-size-font-s:          13px;
+@vsk-size-font-m:          15px;
+@vsk-size-font-l:          17px;
+
+// ----------------------------------------------------------------------------
+// 1.5. Dimensions: Structure (Отступы, скругления, высоты)
+// ----------------------------------------------------------------------------
+
+// Radius
+@vsk-size-radius-xs:       4px;
+@vsk-size-radius-s:        8px;
+@vsk-size-radius-m:        14px; // Custom VSK Standard
+@vsk-size-radius-l:        16px;
+@vsk-size-radius-xl:       24px;
+@vsk-size-radius-round:    100rem;
+
+// Heights
+@vsk-size-height-xs:       24px;
+@vsk-size-height-s:        32px;
+@vsk-size-height-m:        48px;
+@vsk-size-height-l:        56px;
+
+// ----------------------------------------------------------------------------
+// 1.6. Shadows (Тени)
+// ----------------------------------------------------------------------------
+// Light theme shadows
+@vsk-shadow-ambiance:      0 8px 16px 0 rgba(0,0,0, 0.04);
+@vsk-shadow-small:         0 2px 4px 0  rgba(0,0,0, 0.05);
+@vsk-shadow-medium:        0 4px 12px 0 rgba(0,0,0, 0.08);
+@vsk-shadow-large:         0 12px 32px 0 rgba(0,0,0, 0.12);
+
+// Dark theme shadows
+@vsk-dark-shadow-ambiance: 0 8px 16px 0 rgba(0,0,0, 0.6);
+@vsk-dark-shadow-small:    0 2px 4px 0  rgba(0,0,0, 0.6);
+@vsk-dark-shadow-medium:   0 4px 12px 0 rgba(0,0,0, 0.8);
+@vsk-dark-shadow-large:    0 12px 32px 0 rgba(0,0,0, 0.9);
+
+
+// ============================================================================
+// 2. MAPPING (:ROOT / LIGHT THEME)
+// Переназначаем переменные Taiga UI на наши токены
+// ============================================================================
+
+:root {
+    // --- A. Base Layers (Каркас) ---
+    --tui-base-01: @vsk-color-white;      // Surface
+    --tui-base-02: @vsk-color-gray-50;    // Background
+    --tui-base-03: @vsk-color-gray-100;   // Structure/Divider
+    --tui-base-04: @vsk-color-gray-300;   // Borders
+    --tui-base-05: @vsk-color-gray-500;   // Inactive icons
+    --tui-base-06: @vsk-color-gray-800;
+    --tui-base-07: @vsk-color-gray-900;
+    --tui-base-08: @vsk-static-black;
+    --tui-base-09: @vsk-overlay-black;    // Modal overlay
+
+    // Inversion helpers
+    --tui-clear:         rgba(255, 255, 255, 0);
+    --tui-clear-inverse: rgba(0, 0, 0, 0);
+
+    // --- B. Text ---
+    --tui-text-01:       @vsk-color-black;
+    --tui-text-02:       @vsk-color-gray-500;
+    --tui-text-03:       fade(@vsk-color-gray-500, 60%);
+    
+    // Links
+    --tui-link:          @vsk-color-primary;
+    --tui-link-hover:    @vsk-color-primary-hover;
+    --tui-link-active:   @vsk-color-primary-active;
+
+    // Night Text (Текст на темном фоне в светлой теме, например тултипы)
+    --tui-text-01-night: @vsk-static-white;
+    --tui-text-02-night: fade(@vsk-static-white, 72%);
+    --tui-text-03-night: fade(@vsk-static-white, 60%);
+
+    // --- C. Primary ---
+    --tui-primary:          @vsk-color-primary;
+    --tui-primary-hover:    @vsk-color-primary-hover;
+    --tui-primary-active:   @vsk-color-primary-active;
+    --tui-primary-bg:       fade(@vsk-color-primary, 12%);
+    --tui-primary-bg-hover: fade(@vsk-color-primary, 24%);
+
+    // --- D. Statuses ---
+    // Success
+    --tui-success-fill:      @vsk-color-success;
+    --tui-success-bg:        fade(@vsk-color-success, 12%);
+    --tui-success-bg-hover:  fade(@vsk-color-success, 24%);
+    // Error
+    --tui-error-fill:        @vsk-color-error;
+    --tui-error-bg:          fade(@vsk-color-error, 12%);
+    --tui-error-bg-hover:    fade(@vsk-color-error, 24%);
+    // Warning
+    --tui-warning-fill:      @vsk-color-warning;
+    --tui-warning-bg:        fade(@vsk-color-warning, 12%);
+    --tui-warning-bg-hover:  fade(@vsk-color-warning, 24%);
+    // Info
+    --tui-info-fill:         @vsk-color-info;
+    --tui-info-bg:           fade(@vsk-color-info, 12%);
+    --tui-info-bg-hover:     fade(@vsk-color-info, 24%);
+    // Neutral
+    --tui-neutral-fill:      @vsk-color-gray-500;
+    --tui-neutral-bg:        @vsk-color-gray-100;
+    --tui-neutral-bg-hover:  @vsk-color-gray-300;
+
+    // --- E. Charts & Accents ---
+    --tui-chart-0: @vsk-color-primary;
+    --tui-chart-1: @vsk-color-warning;
+    --tui-chart-2: @vsk-color-success;
+    --tui-chart-3: @vsk-color-error;
+    --tui-chart-4: @vsk-chart-purple;
+    --tui-chart-5: @vsk-chart-cyan;
+
+    --tui-background-accent-1: @vsk-color-primary;
+    --tui-background-accent-2: @vsk-color-warning;
+    --tui-background-accent-3: @vsk-color-success;
+    --tui-background-accent-4: @vsk-chart-purple;
+
+    // --- F. Utils (Focus, Selection) ---
+    --tui-focus:     fade(@vsk-color-primary, 60%);
+    --tui-selection: fade(@vsk-color-primary, 20%);
+    --tui-autofill:  @vsk-color-primary-light;
+
+    // --- G. Typography ---
+    --tui-font-heading: @vsk-font-family-head;
+    --tui-font-text:    @vsk-font-family-text;
+    
+    --tui-font-text-xs: @vsk-size-font-xs;
+    --tui-font-text-s:  @vsk-size-font-s;
+    --tui-font-text-m:  @vsk-size-font-m;
+    --tui-font-text-l:  @vsk-size-font-l;
+
+    // --- H. Dimensions ---
+    --tui-height-xs:    @vsk-size-height-xs;
+    --tui-height-s:     @vsk-size-height-s;
+    --tui-height-m:     @vsk-size-height-m;
+    --tui-height-l:     @vsk-size-height-l;
+
+    --tui-radius-xs:    @vsk-size-radius-xs;
+    --tui-radius-s:     @vsk-size-radius-s;
+    --tui-radius-m:     @vsk-size-radius-m;
+    --tui-radius-l:     @vsk-size-radius-l;
+    --tui-radius-xl:    @vsk-size-radius-xl;
+    --tui-radius-round: @vsk-size-radius-round;
+
+    // --- I. Shadows ---
+    --tui-shadow-ambiance: @vsk-shadow-ambiance;
+    --tui-shadow-small:    @vsk-shadow-small;
+    --tui-shadow-medium:   @vsk-shadow-medium;
+    --tui-shadow-large:    @vsk-shadow-large;
 }
 
-@media (prefers-color-scheme: dark) {
-  @layer vsk-ui-kit.tokens {
-    :root {
-      color-scheme: dark;
-      --vsk-color-primary: #7da6ff;
-      --vsk-color-primary-hover: #98b9ff;
-      --vsk-color-surface: #0b1120;
-      --vsk-color-border: #1f2b4d;
+// ============================================================================
+// 3. DARK THEME OVERRIDES
+// ============================================================================
 
-      --tui-primary: var(--vsk-color-primary);
-      --tui-primary-hover: var(--vsk-color-primary-hover);
-      --tui-base-01: #0f172a;
-      --tui-base-02: #111c32;
-      --tui-base-03: #1e2a45;
-      --tui-base-04: #3b4765;
-      --tui-base-06: #f8fafc;
-    }
+[data-tui-theme='dark'] {
+    
+    // --- Base Layers (Inverse) ---
+    --tui-base-01: @vsk-dark-bg-surface;
+    --tui-base-02: @vsk-dark-bg-page;
+    --tui-base-03: @vsk-dark-border;
+    --tui-base-04: lighten(@vsk-dark-border, 10%);
+    --tui-base-05: @vsk-dark-text-sec;
+    --tui-base-06: @vsk-color-gray-100; // Light gray for technical reverse
+    --tui-base-07: @vsk-static-white;
+    --tui-base-08: @vsk-static-white;
+    --tui-base-09: rgba(255, 255, 255, 0.16);
 
-    body {
-      background-color: var(--vsk-color-surface);
-      color: #f8fafc;
-    }
-  }
+    // --- Text (Inverse) ---
+    --tui-text-01:       @vsk-dark-text-main;
+    --tui-text-02:       @vsk-dark-text-sec;
+    --tui-text-03:       fade(@vsk-dark-text-sec, 50%);
+    
+    // Night Text (Inverted back to black because the background is now "night")
+    // This is tricky: "Night" text usually means "Text on inverted background".
+    // In Dark mode, if we have a white tooltip, text should be black.
+    --tui-text-01-night: @vsk-color-black; 
+    --tui-text-02-night: fade(@vsk-color-black, 70%);
+    --tui-text-03-night: fade(@vsk-color-black, 50%);
+
+    // Links
+    --tui-link:          lighten(@vsk-color-primary, 15%);
+    --tui-link-hover:    lighten(@vsk-color-primary, 20%);
+    --tui-link-active:   lighten(@vsk-color-primary, 5%);
+
+    // --- Adjust Background Opacities ---
+    --tui-primary-bg:       fade(@vsk-color-primary, 20%);
+    --tui-primary-bg-hover: fade(@vsk-color-primary, 30%);
+
+    --tui-success-bg:       fade(@vsk-color-success, 20%);
+    --tui-success-bg-hover: fade(@vsk-color-success, 30%);
+
+    --tui-error-bg:         fade(@vsk-color-error, 20%);
+    --tui-error-bg-hover:   fade(@vsk-color-error, 30%);
+
+    --tui-warning-bg:       fade(@vsk-color-warning, 20%);
+    --tui-warning-bg-hover: fade(@vsk-color-warning, 30%);
+
+    --tui-info-bg:          fade(@vsk-color-info, 20%);
+    --tui-info-bg-hover:    fade(@vsk-color-info, 30%);
+
+    --tui-neutral-bg:       rgba(255, 255, 255, 0.08);
+    --tui-neutral-bg-hover: rgba(255, 255, 255, 0.16);
+
+    // --- Shadows ---
+    --tui-shadow-ambiance: @vsk-dark-shadow-ambiance;
+    --tui-shadow-small:    @vsk-dark-shadow-small;
+    --tui-shadow-medium:   @vsk-dark-shadow-medium;
+    --tui-shadow-large:    @vsk-dark-shadow-large;
 }
 
-/* пример переопределения стилей тайги, без !important не все доезжает */
-/*
-tui-chip[aria-pressed='true'],
-[tuiChip][aria-pressed='true'] {
-  border-radius: 1px !important;
-  border: 2px solid red!important;
-}
-*/
-
-.vsk-button-host {
-  display: inline-block;
+body {
+    // Устанавливаем фон страницы
+    background-color: var(--tui-base-02);
+    
+    // Устанавливаем базовый цвет текста (чтобы в темной теме он стал белым)
+    color: var(--tui-text-01);
+    
+    // Плавный переход при смене темы (опционально)
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.vsk-button {
-  --vsk-button-bg: var(--vsk-color-primary);
-  --vsk-button-color: #ffffff;
-  --vsk-button-bg-hover: color-mix(in srgb, var(--vsk-color-primary) 85%, black);
-  --vsk-button-bg-disabled: #a7b6d7;
-  --vsk-button-color-disabled: #ffffff;
-  --vsk-button-border-radius: 999px;
-  --vsk-button-gap: 0.375rem;
-  --vsk-button-padding-md: 0.625rem 1.25rem;
-  --vsk-button-padding-lg: 0.875rem 1.5rem;
-
-  align-items: center;
-  background-color: var(--vsk-button-bg);
-  border: none;
-  border-radius: var(--vsk-button-border-radius);
-  color: var(--vsk-button-color);
-  cursor: pointer;
-  display: inline-flex;
-  font: 600 0.9375rem/1.2 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  gap: var(--vsk-button-gap);
-  letter-spacing: 0.01em;
-  min-height: 2.5rem;
-  padding: var(--vsk-button-padding-md);
-  transition: background-color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
-}
 
 .vsk-visually-hidden {
   border: 0;
@@ -120,140 +298,11 @@ tui-chip[aria-pressed='true'],
   white-space: nowrap;
 }
 
-.vsk-button--lg {
-  font-size: 1.0625rem;
-  min-height: 2.875rem;
-  padding: var(--vsk-button-padding-lg);
-}
-
-.vsk-button--secondary {
-  --vsk-button-bg: #fefefe;
-  --vsk-button-color: #303030;
-  --vsk-button-bg-hover: #ebedf5;
-  box-shadow: inset 0 0 0 1px #8c96b2;
-}
-
-.vsk-button--danger {
-  --vsk-button-bg: #b60e35;
-  --vsk-button-bg-hover: #9b0c2d;
-}
-
-.vsk-button--block {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.vsk-button:hover {
-  background-color: var(--vsk-button-bg-hover);
-}
-
-.vsk-button:focus-visible {
-  outline: 3px solid #9ec5ff;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px #0b1f51;
-}
-
-.vsk-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.vsk-button:disabled {
-  background-color: var(--vsk-button-bg-disabled);
-  color: var(--vsk-button-color-disabled);
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.vsk-button__label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* пример жесткого переопределения стилей тайги, без !important не все доезжает */
+/*
 tui-chip[aria-pressed='true'],
 [tuiChip][aria-pressed='true'] {
-  border-radius: 1px;
-  border: 2px solid red;
+  border-radius: 1px !important;
+  border: 2px solid red!important;
 }
-
-.vsk-button-host {
-  display: inline-block;
-}
-
-.vsk-button {
-  --vsk-button-bg: var(--vsk-color-primary);
-  --vsk-button-color: #ffffff;
-  --vsk-button-bg-hover: color-mix(in srgb, var(--vsk-color-primary) 85%, black);
-  --vsk-button-bg-disabled: #a7b6d7;
-  --vsk-button-color-disabled: #ffffff;
-  --vsk-button-border-radius: 999px;
-  --vsk-button-gap: 0.375rem;
-  --vsk-button-padding-md: 0.625rem 1.25rem;
-  --vsk-button-padding-lg: 0.875rem 1.5rem;
-
-  align-items: center;
-  background-color: var(--vsk-button-bg);
-  border: none;
-  border-radius: var(--vsk-button-border-radius);
-  color: var(--vsk-button-color);
-  cursor: pointer;
-  display: inline-flex;
-  font: 600 0.9375rem/1.2 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  gap: var(--vsk-button-gap);
-  letter-spacing: 0.01em;
-  min-height: 2.5rem;
-  padding: var(--vsk-button-padding-md);
-  transition: background-color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
-}
-
-.vsk-button--lg {
-  font-size: 1.0625rem;
-  min-height: 2.875rem;
-  padding: var(--vsk-button-padding-lg);
-}
-
-.vsk-button--secondary {
-  --vsk-button-bg: #fefefe;
-  --vsk-button-color: #303030;
-  --vsk-button-bg-hover: #ebedf5;
-  box-shadow: inset 0 0 0 1px #8c96b2;
-}
-
-.vsk-button--danger {
-  --vsk-button-bg: #b60e35;
-  --vsk-button-bg-hover: #9b0c2d;
-}
-
-.vsk-button--block {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.vsk-button:hover {
-  background-color: var(--vsk-button-bg-hover);
-}
-
-.vsk-button:focus-visible {
-  outline: 3px solid #9ec5ff;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px #0b1f51;
-}
-
-.vsk-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.vsk-button:disabled {
-  background-color: var(--vsk-button-bg-disabled);
-  color: var(--vsk-button-color-disabled);
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.vsk-button__label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
+*/
