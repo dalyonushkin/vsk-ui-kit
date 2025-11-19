@@ -2,6 +2,10 @@ import type { Preview } from '@storybook/angular';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import docJson from '../documentation.json';
+import prettier from 'prettier/standalone';
+import parserHtml from 'prettier/parser-html';
+import parserBabel from 'prettier/parser-babel'; // Для JS/TS
+import parserPostcss from 'prettier/parser-postcss'; // Для CSS
 
 setCompodocJson(docJson);
 
@@ -43,6 +47,47 @@ const preview: Preview = {
     },
     docs: {
       codePanel: true,
+      //source: { language: 'html',format: true },
+       source: {
+        transform: (code: string, context: any) => {
+          const language = context?.parameters?.docs?.source?.language || 'html';
+
+          // 1. МАГИЯ ЗДЕСЬ: Очистка кода перед форматированием
+          // Ищем паттерн [prop]="'value'" и меняем на prop="value"
+          let cleanCode = code.replace(/\[([a-zA-Z0-9_-]+)\]="'([^']*)'"/g, '$1="$2"');
+          
+          // Опционально: убрать [prop]="false", если вам не нужно показывать выключенные булевы флаги
+          // cleanCode = cleanCode.replace(/\[([a-zA-Z0-9_-]+)\]="false"\s?/g, '');
+
+          let parser = 'html';
+          let plugins: any[] = [parserHtml];
+
+          if (language === 'typescript' || language === 'ts' || language === 'javascript') {
+            parser = 'babel-ts'; 
+            plugins = [parserBabel];
+            // Для TS чистку выше применять не стоит, поэтому вернем исходный code, если нужно
+            cleanCode = code; 
+          } else if (language === 'css' || language === 'scss') {
+            parser = 'css';
+            plugins = [parserPostcss];
+            cleanCode = code;
+          }
+
+          try {
+            // Форматируем уже очищенный код
+            return prettier.format(cleanCode, {
+              parser: parser,
+              plugins: plugins,
+              htmlWhitespaceSensitivity: 'ignore',
+              printWidth: 80,
+              tabWidth: 2,
+              useTabs: false,
+            });
+          } catch (error) {
+            return code;
+          }
+        },
+      },
     },
     options: {
       storySort: {
