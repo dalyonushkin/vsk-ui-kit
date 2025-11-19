@@ -22,6 +22,10 @@ const config: StorybookConfig = {
     '../tokens/src/styles',
     { from: '../src/stories/assets', to: '/assets' },
     {
+      from: '../src/assets/vsk-icons',
+      to: '/assets/taiga-ui/icons',
+    },
+    {
       from: '../../../node_modules/@taiga-ui/icons/src',
       to: '/assets/taiga-ui/icons',
     },
