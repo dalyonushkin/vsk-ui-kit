@@ -21,6 +21,10 @@ const config: StorybookConfig = {
   staticDirs: [
     '../tokens/src/styles',
     { from: '../src/stories/assets', to: '/assets' },
+    {
+      from: '../../../node_modules/@taiga-ui/icons/src',
+      to: '/assets/taiga-ui/icons',
+    },
   ],
 };
 

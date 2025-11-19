@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "npm run build:lib",
-    "build:lib": "ng build vsk-ui-kit --configuration production && node tools/copy-token-styles.mjs",
+    "build:lib": "ng build vsk-ui-kit --configuration production && node tools/copy-token-styles.mjs && node tools/copy-taiga-icons.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test-storybook:ci",
     "test:watch": "ng test --watch=true ",
