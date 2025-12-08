@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
-import { TuiButton, TuiLoader } from '@vsk/ui-kit/taiga-ui/core';
+import { TuiButton, TuiIcon, TuiIconPipe, TuiLoader } from '@vsk/ui-kit/taiga-ui/core';
 
 import { BUTTON_TEMPLATE } from './button.story-template';
 import { buildButtonParameters } from './button.story-config';
@@ -122,7 +122,7 @@ export const EdgeCases: Story = {
   render: (args) => ({
     props: args,
     moduleMetadata: {
-      imports: [TuiButton, TuiLoader],
+      imports: [TuiButton, TuiLoader, TuiIcon, TuiIconPipe],
     },
     template: `
       <section aria-label="Пограничные случаи">

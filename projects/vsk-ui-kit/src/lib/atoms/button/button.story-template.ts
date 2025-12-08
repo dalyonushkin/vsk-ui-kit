@@ -2,6 +2,7 @@ export const BUTTON_TEMPLATE = `
   <button
     tuiButton
     type="button"
+    iconEnd="@tui.vsk-home"
     [appearance]="appearance"
     [size]="size"
     [disabled]="disabled || loading"

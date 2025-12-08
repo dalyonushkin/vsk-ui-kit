@@ -49,25 +49,6 @@ const meta: Meta<VskButtonExampleComponent> = {
     block: false,
     disabled: false,
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <vsk-button-example
-        [label]="label"
-        [variant]="variant"
-        [size]="size"
-        [block]="block"
-        [disabled]="disabled"
-        [ariaLabel]="ariaLabel"
-        [ariaDescribedBy]="ariaDescribedBy"
-        [ariaControls]="ariaControls"
-        [ariaExpanded]="ariaExpanded"
-        [ariaPressed]="ariaPressed"
-        [ariaLive]="ariaLive"
-        (pressed)="pressed($event)"
-      ></vsk-button-example>
-    `,
-  }),
 };
 
 export default meta;
@@ -92,7 +73,7 @@ export const WithAssistiveText: Story = {
         Комиссия за перевод 0 ₽. Кнопка открывает диалог подтверждения.
       </p>
       <vsk-button-example
-        [label]="label"
+        [label]=label
         [variant]="variant"
         [size]="size"
         [block]="block"

@@ -12,15 +12,48 @@ setCompodocJson(docJson);
 const preview: Preview = {
   // 1. Настраиваем кнопку в тулбаре
   globalTypes: {
+    // --- Тема (Светлая/Темная) ---
     theme: {
-      description: 'Глобальная тема приложения',
+      description: 'Глобальная тема',
       defaultValue: 'light',
       toolbar: {
         title: 'Тема',
-        icon: 'mirror', // Иконка в меню (mirror, circlehollow, etc)
+        icon: 'mirror',
         items: [
           { value: 'light', icon: 'circlehollow', title: 'Light' },
           { value: 'dark', icon: 'circle', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    
+    // --- Размер (Accessibility) ---
+    viewSize: {
+      description: 'Размер элементов (для слабовидящих)',
+      defaultValue: 'view-standard-size',
+      toolbar: {
+        title: 'Размер',
+        icon: 'zoom', // Иконка лупы
+        items: [
+          { value: 'view-standard-size', title: 'Standard', icon: 'ruler' },
+          { value: 'view-large-size', title: 'Large (x1.2)', icon: 'grow' },
+          { value: 'view-extralarge-size', title: 'Extra Large (x1.5)', icon: 'expand' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+
+    // --- Платформа (Web/iOS/Android) ---
+    platform: {
+      description: 'Платформа устройства',
+      defaultValue: 'web',
+      toolbar: {
+        title: 'Платформа',
+        icon: 'mobile', // Иконка девайса
+        items: [
+          { value: 'web', title: 'Web', icon: 'browser' },
+          { value: 'ios', title: 'iOS', icon: 'apple' }, // (icon 'apple' может не быть в старых версиях, замените на 'mobile')
+          { value: 'android', title: 'Android', icon: 'mobile' }, // аналогично
         ],
         dynamicTitle: true,
       },
@@ -127,13 +160,24 @@ const preview: Preview = {
   // 2. Декоратор, который применяет тему
   decorators: [
     (story, context:any) => {
-      // Получаем текущее значение из тулбара (по умолчанию 'light')
+      if (context.viewMode === 'docs') {
+      return story();
+    }
+    console.log('Глобальные параметры:', context);
+    console.log('Глобальные параметры:', story);
+// Получаем значения из тулбара или берем дефолтные
       const theme = context.globals.theme || 'light';
+      const viewSize = context.globals.viewSize || 'view-standard-size';
+      const platform = context.globals.platform || 'web';
 
       // ВАША ЛОГИКА: Устанавливаем атрибут на body
       // Storybook запускает это внутри iframe, поэтому document.body безопасен
-      document.body.setAttribute('data-tui-theme', theme);
+  //  document.body.setAttribute('data-tui-theme', theme);
+// 2. Размер (используем атрибут data-view-size)
+      document.body.setAttribute('data-view-size', viewSize);
 
+      // 3. Платформа (используем атрибут data-platform)
+      //document.body.setAttribute('data-platform', platform);
 
       return story();
     },
