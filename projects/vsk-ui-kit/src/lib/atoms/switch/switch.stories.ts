@@ -1,13 +1,101 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { TuiLabel } from '@vsk/ui-kit/taiga-ui/core';
 import { TuiPlatform } from '@vsk/ui-kit/taiga-ui/cdk';
 import { TuiSwitch } from '@vsk/ui-kit/taiga-ui/kit';
-import {TuiCardMedium,TuiCell} from '@taiga-ui/layout';
+import {
+  createInvalidControl,
+  createShowcaseVariants,
+  createShowcaseControlResolver,
+  DEFAULT_SHOWCASE_SIZES,
+  VskShowcaseComponent,
+  VskShowcaseOption,
+  VskShowcaseSize,
+  VskShowcasePlatform,
+  VskShowcaseVariant,
+} from '../../storybook/showcase/vsk-showcase.component';
 
 type TuiSizeS = 's' | 'm';
-type TuiPlatformName = 'web' | 'android' | 'ios';
+type TuiPlatformName = VskShowcasePlatform;
+type SwitchShowcaseSize = Exclude<VskShowcaseSize, 'l'>;
+
+// Модель значения для витрины: либо простое ngModel, либо formControl с ошибкой/валидацией.
+interface SwitchShowcaseNgModel {
+  kind: 'ngModel';
+  value: boolean;
+}
+
+interface SwitchShowcaseFormControl {
+  kind: 'formControl';
+  createControl: () => FormControl<boolean>;
+}
+
+type SwitchShowcaseModel = SwitchShowcaseNgModel | SwitchShowcaseFormControl;
+
+// Данные, которые попадут в шаблон элемента витрины.
+interface SwitchShowcaseVariantData {
+  disabled: boolean;
+  showIcons: boolean;
+  model: SwitchShowcaseModel;
+}
+type SwitchShowcaseVariant = VskShowcaseVariant<SwitchShowcaseVariantData>;
+
+// Переключатель поддерживает только S/M, поэтому исключаем L.
+const switchSizes: VskShowcaseOption<SwitchShowcaseSize>[] = DEFAULT_SHOWCASE_SIZES.filter(
+  (size): size is VskShowcaseOption<SwitchShowcaseSize> => size.value !== 'l',
+);
+
+// Генерируем все комбинации значений: disabled x showIcons x model.
+const defaultVariants: SwitchShowcaseVariant[] = createShowcaseVariants<SwitchShowcaseVariantData>({
+  prefix: 'Переключатель в состояниях',
+  dimensions: [
+    {
+      key: 'disabled',
+      label: 'disabled',
+      values: [
+        { label: 'выключено', value: false, id: 'off' },
+        { label: 'включено', value: true, id: 'on' },
+      ],
+    },
+    {
+      key: 'showIcons',
+      label: 'showIcons',
+      values: [
+        { label: 'нет', value: false, id: 'no' },
+        { label: 'есть', value: true, id: 'yes' },
+      ],
+    },
+    {
+      key: 'model',
+      label: 'ngModel',
+      values: [
+        // Обычные состояния через ngModel.
+        { label: 'включено', value: { kind: 'ngModel', value: true }, id: 'ng-on' },
+        { label: 'выключено', value: { kind: 'ngModel', value: false }, id: 'ng-off' },
+        // Состояния с ошибкой через FormControl.
+        {
+          label: 'ошибка (on)',
+          title: 'formControl=ошибка (on)',
+          value: { kind: 'formControl', createControl: () => createInvalidControl(true) },
+          id: 'fc-on',
+        },
+        {
+          label: 'ошибка (off)',
+          title: 'formControl=ошибка (off)',
+          value: { kind: 'formControl', createControl: () => createInvalidControl(false) },
+          id: 'fc-off',
+        },
+      ],
+    },
+  ],
+  mapData: (values) => ({
+    // Читаем из словаря комбинации по ключу измерения.
+    disabled: values['disabled'] as boolean,
+    showIcons: values['showIcons'] as boolean,
+    model: values['model'] as SwitchShowcaseModel,
+  }),
+});
 
 interface SwitchStoryArgs {
   checked: boolean;
@@ -111,11 +199,15 @@ export const Playground: Story = {
             [attr.aria-label]="!label ? ariaLabel : null"
             [attr.aria-describedby]="helperText ? 'switch-helper' : null"
           />
-          <span *ngIf="label">{{ label }}</span>
+          @if (label) {
+            <span>{{ label }}</span>
+          }
         </label>
-        <p *ngIf="helperText" id="switch-helper" class="vsk-visually-hidden">
-          {{ helperText }}
-        </p>
+        @if (helperText) {
+          <p id="switch-helper" class="vsk-visually-hidden">
+            {{ helperText }}
+          </p>
+        }
       </section>
     `,
   }),
@@ -124,7 +216,7 @@ export const Playground: Story = {
 export const Showcase: Story = {
   parameters: {
     controls: { disabled: true },
-   viewport: null,
+    viewport: null,
     docs: {
       description: {
         story:
@@ -132,80 +224,61 @@ export const Showcase: Story = {
       },
     },
   },
-  render: () => ({
-    props: {
-      themes: [ 'ligth', 'dark'] as string[],
-      platforms: [ 'web', 'android', 'ios'] as TuiPlatformName[],
-      sizes: [ 's', 'm', 'l'] as string[],
-      booleanValues: [ true, false ],
-      invalidTrue: new FormControl(true, () => ({ invalid: true })),
-      invalidFalse: new FormControl(false, () => ({ invalid: true })),
-    },
-    moduleMetadata: {
-      imports: [NgFor, FormsModule, ReactiveFormsModule, TuiLabel, TuiPlatform, TuiSwitch, TuiCardMedium, TuiCell],
-    },
-    template: `
-      
-      <div *ngFor="let theme of themes" [attr.data-tui-theme]="theme" class="theme-card">
-        <h2>Тема: {{ theme }}</h2>
-        <div *ngFor="let platform of platforms" [tuiPlatform]="platform" >
-          <div *ngFor="let size of sizes">
-            <h3>Платформа: {{ platform }}, Размер: {{ size }}</h3>
-            <div *ngFor="let disabled of booleanValues">
-              <span *ngFor="let modelValue of booleanValues">
-                <!-- on -->
-                <span tuiCardMedium>
-                  <input tuiSwitch type="checkbox" [disabled]="disabled" [ngModel]="modelValue" [showIcons]="first" [size]="size" />
-                </span>
-              </span>
-            </div>
-            <!-- disabled on -->
-            <input tuiSwitch type="checkbox" [disabled]="disabled" [ngModel]="true" [showIcons]="first" [size]="first ? 'm' : 's'" />
+  render: () => {
+    // Кешируем FormControl по ключу, чтобы каждый вариант был стабильным.
+    const resolveControl = createShowcaseControlResolver();
 
-            <!-- off -->
-            <input tuiSwitch type="checkbox" [ngModel]="false" [showIcons]="first" [size]="first ? 'm' : 's'" />
+    return {
+      props: {
+        // Передаем только разрешенные размеры и список вариантов.
+        sizes: switchSizes,
+        variants: defaultVariants,
+        // Просим витрину оборачивать элементы в <label tuiLabel>.
+        resolveControl,
+        wrapInLabel: true,
+      },
+      moduleMetadata: {
+        imports: [VskShowcaseComponent, FormsModule, ReactiveFormsModule, TuiSwitch],
+      },
+      template: `
+        <!-- Шаблон одного элемента витрины для переключателя. -->
+        <ng-template #item let-variant let-size="size" let-key="key">
+          @switch (variant.data.model.kind) {
+            @case ('ngModel') {
+              <!-- size.value берется из входного списка sizes -->
+              <input
+                tuiSwitch
+                type="checkbox"
+                [ngModel]="variant.data.model.value"
+                [disabled]="variant.data.disabled"
+                [showIcons]="variant.data.showIcons"
+                [size]="size.value"
+                [attr.aria-label]="variant.title"
+              />
+            }
+            @case ('formControl') {
+              <!-- FormControl создается на каждый уникальный ключ витрины -->
+              <input
+                tuiSwitch
+                type="checkbox"
+                [formControl]="resolveControl(key, variant.data.model.createControl)"
+                [disabled]="variant.data.disabled"
+                [showIcons]="variant.data.showIcons"
+                [size]="size.value"
+                [attr.aria-label]="variant.title"
+              />
+            }
+          }
+        </ng-template>
 
-            <!-- disabled off -->
-            <input tuiSwitch type="checkbox" [disabled]="true" [ngModel]="false" [showIcons]="first" [size]="first ? 'm' : 's'" />
-
-            <!-- invalid on/off (touched) -->
-            <input tuiSwitch type="checkbox" [formControl]="invalidTrue" [showIcons]="first" [size]="first ? 'm' : 's'" />
-            <input tuiSwitch type="checkbox" [formControl]="invalidFalse" [showIcons]="first" [size]="first ? 'm' : 's'" />
-
-            <hr />
-          </div>
-        </div>
-      </div>
-
-      <section aria-label="Размеры переключателя по дизайну">
-        <div [tuiCell]="s">
-          <label tuiLabel>
-            <input tuiSwitch type="checkbox" [ngModel]="true" [size]="'s'" />
-            Маленький переключатель (S)
-          </label>
-        </div>
-
-        <div [tuiCell]="s">
-          <label tuiLabel>
-            <input tuiSwitch type="checkbox" [ngModel]="true" [size]="'m'" />
-            Средний переключатель (M)
-          </label>
-        </div>
-
-        <div [tuiCell]="s">
-          <label tuiLabel>
-            <input tuiSwitch type="checkbox" [ngModel]="true" [size]="'l'" />
-            Большой переключатель (L, макет VSK, размер Taiga — m)
-          </label>
-        </div>
-      </section>
-          <style>
-    .theme-card {
-    background-color: var(--tui-base-02);
-    color: var(--tui-text-01);
-    transition: background-color 0.3s, color 0.3s;
-}
-    </style>
-    `,
-  }),
+        <!-- Общая витрина, которая сама разбивает на темы/платформы/размеры. -->
+        <vsk-showcase
+          [sizes]="sizes"
+          [variants]="variants"
+          [wrapInLabel]="wrapInLabel"
+          [itemTemplate]="item"
+        />
+      `,
+    };
+  },
 };

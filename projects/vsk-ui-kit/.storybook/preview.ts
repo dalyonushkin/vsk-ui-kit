@@ -160,24 +160,22 @@ const preview: Preview = {
   // 2. Декоратор, который применяет тему
   decorators: [
     (story, context:any) => {
-      if (context.viewMode === 'docs') {
+      if (context.viewMode === 'docs' ||  context.name.startsWith('Showcase')) {
       return story();
     }
-    console.log('Глобальные параметры:', context);
-    console.log('Глобальные параметры:', story);
-// Получаем значения из тулбара или берем дефолтные
+
+    // Получаем значения из тулбара или берем дефолтные
       const theme = context.globals.theme || 'light';
       const viewSize = context.globals.viewSize || 'view-standard-size';
       const platform = context.globals.platform || 'web';
 
-      // ВАША ЛОГИКА: Устанавливаем атрибут на body
       // Storybook запускает это внутри iframe, поэтому document.body безопасен
-  //  document.body.setAttribute('data-tui-theme', theme);
-// 2. Размер (используем атрибут data-view-size)
+      document.body.setAttribute('data-tui-theme', theme);
+      // 2. Размер (используем атрибут data-view-size)
       document.body.setAttribute('data-view-size', viewSize);
 
       // 3. Платформа (используем атрибут data-platform)
-      //document.body.setAttribute('data-platform', platform);
+      document.body.setAttribute('data-platform', platform);
 
       return story();
     },

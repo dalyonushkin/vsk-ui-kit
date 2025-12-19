@@ -1,0 +1,203 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Showcase" />
+
+# Showcase: быстрый гайд и подробная инструкция
+
+## TL;DR для сеньоров
+- Используйте `VskShowcaseComponent` + `createShowcaseVariants()` для матриц состояний.
+- `themes/platforms/sizes` по умолчанию уже заполнены, передавайте только если нужно ограничить.
+- Для форм-контролов: `createShowcaseControlResolver()` + `createInvalidControl()`.
+- Раскладка через `layout="grid|stack|full"`.
+- Витрина рендерит карточки сама, вы поставляете только шаблон элемента.
+- В Showcase управление параметрами отключено, чтобы избежать поломки раскладки (см. `projects/vsk-ui-kit/.storybook/preview.ts`).
+
+## Зачем нужен Showcase
+Showcase — это универсальная витрина для Storybook, которая:
+- красиво группирует варианты по темам, платформам и размерам;
+- позволяет показать много комбинаций без ручного копирования кода;
+- даёт единый визуальный стандарт для всех компонентов.
+
+## Базовые идеи
+1. **Витрина** отвечает за визуальную сетку и заголовки.
+2. **Вы** отвечаете за набор вариантов и шаблон элемента.
+3. **Комбинации** удобно генерировать функцией `createShowcaseVariants`.
+
+---
+
+## 1. Самый простой пример (минимум кода)
+```ts
+import {
+  VskShowcaseComponent,
+  createShowcaseVariants,
+} from '../storybook/showcase/vsk-showcase.component';
+
+const variants = createShowcaseVariants({
+  prefix: 'Кнопка в состояниях',
+  dimensions: [
+    {
+      key: 'disabled',
+      label: 'disabled',
+      values: [
+        { label: 'нет', value: false },
+        { label: 'да', value: true },
+      ],
+    },
+    {
+      key: 'appearance',
+      label: 'appearance',
+      values: [
+        { label: 'primary', value: 'primary' },
+        { label: 'secondary', value: 'secondary' },
+      ],
+    },
+  ],
+  mapData: (values) => ({
+    disabled: values['disabled'] as boolean,
+    appearance: values['appearance'] as 'primary' | 'secondary',
+  }),
+});
+```
+
+```html
+<ng-template #item let-variant>
+  <button tuiButton [appearance]="variant.data.appearance" [disabled]="variant.data.disabled">
+    Кнопка
+  </button>
+</ng-template>
+
+<vsk-showcase [variants]="variants" [itemTemplate]="item" />
+```
+
+---
+
+## 2. Ограничение тем/платформ/размеров
+По умолчанию витрина показывает **все** темы, платформы и размеры.
+Если компонент поддерживает только часть, передайте ограничения:
+
+```ts
+const sizes = DEFAULT_SHOWCASE_SIZES.filter((size) => size.value !== 'l');
+const platforms = [{ label: 'Web', value: 'web' }];
+```
+
+```html
+<vsk-showcase
+  [sizes]="sizes"
+  [platforms]="platforms"
+  [variants]="variants"
+  [itemTemplate]="item"
+/>
+```
+
+---
+
+## 3. Раскладка вариантов
+`layout` управляет тем, как выводятся карточки вариантов:
+- `grid` — сетка (по умолчанию)
+- `stack` — один столбец
+- `full` — один столбец с увеличенными карточками
+
+```html
+<vsk-showcase [layout]="'stack'" [variants]="variants" [itemTemplate]="item" />
+```
+
+---
+
+## 4. Работа с формами и ошибками
+Если нужно показать ошибки формы или реактивные состояния:
+
+```ts
+import {
+  createShowcaseControlResolver,
+  createInvalidControl,
+} from '../storybook/showcase/vsk-showcase.component';
+
+const resolveControl = createShowcaseControlResolver();
+
+const variants = createShowcaseVariants({
+  prefix: 'Поле ввода',
+  dimensions: [
+    {
+      key: 'state',
+      label: 'state',
+      values: [
+        { label: 'valid', value: { kind: 'ngModel', value: 'ok' } },
+        {
+          label: 'invalid',
+          title: 'formControl=ошибка',
+          value: { kind: 'formControl', createControl: () => createInvalidControl('bad') },
+        },
+      ],
+    },
+  ],
+  mapData: (values) => ({
+    model: values['state'] as
+      | { kind: 'ngModel'; value: string }
+      | { kind: 'formControl'; createControl: () => FormControl<string> },
+  }),
+});
+```
+
+```html
+<ng-template #item let-variant let-key="key">
+  @switch (variant.data.model.kind) {
+    @case ('ngModel') {
+      <input tuiTextfield [ngModel]="variant.data.model.value" />
+    }
+    @case ('formControl') {
+      <input tuiTextfield [formControl]="resolveControl(key, variant.data.model.createControl)" />
+    }
+  }
+</ng-template>
+
+<vsk-showcase [variants]="variants" [itemTemplate]="item" />
+```
+
+---
+
+## 5. Кастомные подписи для комбинаций
+Если нужно написать нестандартное описание варианта:
+```ts
+const variants = createShowcaseVariants({
+  prefix: 'Переключатель',
+  dimensions: [
+    {
+      key: 'icon',
+      label: 'icon',
+      values: [
+        { label: 'нет', value: 'none', title: 'icon=отсутствует' },
+        { label: 'слева', value: 'left', title: 'icon=слева' },
+      ],
+    },
+  ],
+  mapData: (values) => ({ icon: values['icon'] as string }),
+});
+```
+
+---
+
+## 6. Ручные варианты (когда матрица не нужна)
+Можно перечислять варианты вручную, если логика нестандартная:
+
+```ts
+const variants = [
+  { id: 'a', title: 'Эксклюзивный кейс', data: { mode: 'special' } },
+  { id: 'b', title: 'Редкий кейс', data: { mode: 'rare' } },
+];
+```
+
+---
+
+## 7. Типичные ошибки
+- **Слишком много комбинаций:** сначала фильтруйте значения, иначе витрина будет перегружена.
+- **Переиспользование FormControl:** всегда используйте `createShowcaseControlResolver`.
+- **Передача неподдерживаемых размеров:** ограничивайте `sizes` заранее.
+- **Включённые контролы:** в Showcase они отключены для стабильного отображения сетки.
+
+---
+
+## Чек-лист перед коммитом
+- Понятные заголовки вариантов.
+- Нет лишних комбинаций.
+- Ограничены размеры/платформы, если компонент их не поддерживает.
+- Сетка не ломается на темной теме.
